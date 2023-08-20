@@ -1,6 +1,13 @@
 # Documentación
 
 Como interactua MVC con .Net core
+# Indice
+- [Controlador](#controlador)
+    - [Crear un controller como API REST](#crear-un-controller-como-api-rest)
+    - [Crear un controller como Aplicación web](#crear-un-controller-como-aplicación-web)
+- [Modelo](#modelo)
+- [Vista](#vista)
+- [Entity Framework](#entity-framework)
 
 ## Controlador
 
@@ -11,7 +18,23 @@ Exites dos tipos de controllers en .Net core, los controllers MVC y los controll
 
 En este caso se usará un controller MVC.
 
-### Crear un controller
+### Crear un controller como API REST
+Para crear un enrutador como API REST se debe crear un controller con el nombre `UserController` y heredar de `ControllerBase` en vez de `Controller`.
+
+```csharp
+[Route("api/[controller]")]
+[ApiController]
+public class UserController : ControllerBase
+{
+    [HttpGet]
+    public IActionResult Get()
+    {
+        return Ok("Hola mundo");
+    }
+}
+```
+La ruta que se esta creando es `api/User` y el método que se esta creando es `Get` y este método retorna un `Ok` con el mensaje `Hola mundo`.
+### Crear un controller como Aplicación web
 
 Si creamos un controller y le ponemos `UserController` y la idea es que "por cada controlador exista un vista"
 
