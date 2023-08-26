@@ -5,12 +5,28 @@
       "PackagePath": "staticwebassets\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack.bundle.scp.css"
     },
     {
+      "Id": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\wwwroot\\css\\input.css",
+      "PackagePath": "staticwebassets\\css\\input.css"
+    },
+    {
+      "Id": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\wwwroot\\css\\output.css",
+      "PackagePath": "staticwebassets\\css\\output.css"
+    },
+    {
       "Id": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\wwwroot\\js\\navegation.js",
+      "PackagePath": "staticwebassets\\js\\navegation.js"
+    },
+    {
+      "Id": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\wwwroot\\js\\nodes.js",
+      "PackagePath": "staticwebassets\\js\\nodes.js"
     },
     {
       "Id": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\wwwroot\\js\\site.js",
