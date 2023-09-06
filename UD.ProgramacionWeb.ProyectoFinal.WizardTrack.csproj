@@ -16,7 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\DataBase\" />
+    <Folder Include="Doc\" />
+    <Folder Include="Models\Database\DTO\" />
+    <Folder Include="Models\Database\Data_log\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,76 @@
+
+CREATE DATABASE wizardtrack
+ON 
+(
+    NAME = 'wizardtrack_Data',
+    FILENAME = 'C:\xampp\htdocs\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\Models\Database\Data_log\wizardtrack.mdf',
+    SIZE = 10MB,
+    MAXSIZE = UNLIMITED,
+    FILEGROWTH = 1MB
+)
+LOG ON
+(
+    NAME = 'wizardtrack_Log',
+    FILENAME = 'C:\xampp\htdocs\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\Models\Database\Data_log\wizardtrack.ldf',
+    SIZE = 5MB,
+    MAXSIZE = 100MB,
+    FILEGROWTH = 1MB
+);
+USE wizardtrack;
+
+CREATE TABLE user_wizardtrack (
+    id bigint PRIMARY KEY IDENTITY(1,1),
+    name nvarchar(50) NOT NULL,
+    email nvarchar(50) NOT NULL,
+    password nvarchar(100) NOT NULL
+);
+
+CREATE TABLE debt (
+    id bigint IDENTITY(1,1),
+    id_user bigint,
+    amount money not null,
+    star_date date not null,
+    end_date date not null,
+    interest decimal(5,2) not null,
+    description nvarchar(max),
+    name nvarchar(50) not null,
+    installments tinyint not null,
+    PRIMARY KEY (id, id_user),
+    FOREIGN KEY (id_user) REFERENCES user_wizardtrack(id)
+);
+
+CREATE TABLE save_count (
+    id bigint IDENTITY(1,1),
+    id_user bigint,
+    amount money not null,
+    star_date date not null,
+    end_date date not null,
+    description nvarchar(max),
+    name nvarchar(50) not null,
+    PRIMARY KEY (id, id_user),
+    FOREIGN KEY (id_user) REFERENCES user_wizardtrack(id)
+);
+
+CREATE TABLE spent (
+    id bigint IDENTITY(1,1),
+    id_user bigint,
+    amount money not null,
+    count bigint not null,
+    spent_date date not null,
+    description nvarchar(max),
+    name nvarchar(50) not null,
+    PRIMARY KEY (id, id_user),
+    FOREIGN KEY (id_user) REFERENCES user_wizardtrack(id)
+);
+
+CREATE TABLE income (
+    id bigint IDENTITY(1,1),
+    id_user bigint,
+    amount money not null,
+    frecuency tinyint not null,
+    income_date date not null,
+    description nvarchar(max),
+    name nvarchar(50) not null,
+    PRIMARY KEY (id, id_user),
+    FOREIGN KEY (id_user) REFERENCES user_wizardtrack(id)
+);
