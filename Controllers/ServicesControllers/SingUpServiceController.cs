@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Services;
+using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.Database.Conn;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.DTO;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.DTO.ServicesHTTP;
@@ -13,6 +14,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServicesContr
     public class SingUpServiceController : ControllerBase
     {
         ServiceUsuario serviceUsuario = new();
+        Seguridad seguridad = new();
         // POST api/<ValuesController>
         [HttpPost]
         public async Task<UserDTO>? Post([FromBody] SignUpServiceDTO value)
@@ -24,18 +26,17 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServicesContr
                 await serviceUsuario.SaveUser(value);
                 userWizardtrack = await serviceUsuario.SelectUser(value.name, value.email);
                 if(userWizardtrack == null) return new UserDTO(0, "Error al ejecutar la peticion", "");
-                var token = serviceUsuario.GeneratorToken(userWizardtrack);
+                var token = seguridad.GeneratorToken(userWizardtrack);
                 Response.Cookies.Append("CookieToken", token, new CookieOptions
                 {
                     HttpOnly = true,
                     SameSite = SameSiteMode.None,
                     Secure = true, // Ajusta según tu configuración de HTTPS
-                    Expires = DateTime.Now.AddMinutes(60) // Ajusta la expiración como desees
+                    Expires = DateTime.Now.AddMinutes(60)
                 });
                 return new UserDTO(userWizardtrack.Id, userWizardtrack.Name, userWizardtrack.Email);
             }
             catch (Exception ex) {
-                Console.WriteLine(ex.Message);
                 return new UserDTO(0,"Error al ejecutar la peticion",ex.Message);
             }
         }

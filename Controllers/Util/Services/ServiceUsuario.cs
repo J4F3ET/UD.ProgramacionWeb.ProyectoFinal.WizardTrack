@@ -19,43 +19,6 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Services
     public class ServiceUsuario: IServiceUser
     {
         private readonly Seguridad seguridad = new();
-        public string GeneratorToken(UserWizardtrack user) {
-            var token = JwtBuilder.Create()
-                      .WithAlgorithm(new HMACSHA256Algorithm())
-                      .WithSecret(seguridad.GetSecretKey())
-                      .AddClaim("exp", DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds())
-                      .AddClaim("id", user.Id)
-                      .AddClaim("name", user.Name)
-                      .AddClaim("email", user.Email)
-                      .Encode();
-            return token;
-        }
-
-        public string VerifyToken(string token){
-            var json = JwtBuilder.Create()
-                     .WithAlgorithm(new HMACSHA256Algorithm())
-                     .WithSecret(seguridad.GetSecretKey())
-                     .MustVerifySignature()
-                     .Decode<IDictionary<string, object>>(token);
-            try
-            {
-                if (json == null) throw new ExceptionEmpyObject("token null");
-
-                DateTimeOffset expClaimDateTime = DateTimeOffset.FromUnixTimeSeconds((long)json["exp"]);
-                TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time"); // Colombia Standard Time
-                DateTime horaColombia = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
-
-                if (expClaimDateTime < horaColombia) return "Invalido";
-
-            }
-            catch (ExceptionEmpyObject ex) {
-                return ex.Message;
-            }
-            catch(Exception ex) {
-                return "Fallo la verificacion del token, token nov alido"+ex.Message;
-            }
-            return "" + json["id"]+ json["email"]+ json["name"];
-        }
 
         public async Task<UserWizardtrack> SaveUser(SignUpServiceDTO user)
         {

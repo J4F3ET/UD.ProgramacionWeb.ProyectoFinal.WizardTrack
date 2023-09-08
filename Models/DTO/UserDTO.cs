@@ -2,7 +2,7 @@
 {
     public class UserDTO
     {
-        public UserDTO(long id,string name,string email) { 
+        public UserDTO(long id,string name,string email) {
             Id = id;
             Name = name;
             Email = email;
