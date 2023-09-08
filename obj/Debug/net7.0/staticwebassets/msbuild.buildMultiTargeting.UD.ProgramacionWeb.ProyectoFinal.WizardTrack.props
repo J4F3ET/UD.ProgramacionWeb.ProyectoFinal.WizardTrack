@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\UD.ProgramacionWeb.ProyectoFinal.WizardTrack.props" />
+</Project>

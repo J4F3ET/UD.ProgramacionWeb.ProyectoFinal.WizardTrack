@@ -125,7 +125,7 @@ Framework.
   En la consola de NuGet se debe ejecutar el siguiente comando para poder usar las herramientas de Entity Framework.
 
 ```bash
-    Scaffold-DbContext "Server=DESKTOP-BEMQCO7\SQLEXPRESS;Database=wizardtrack;User=sa;Password=123456;TrustServerCertificate=true" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models/Database/DTO
+    Scaffold-DbContext "Server=DESKTOP-BEMQCO7\SQLEXPRESS;Database=wizardtrack;User=sa;Password=123456;TrustServerCertificate=true" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models/Database/Conn
 ```
 
 - Scaffold-DbContext: Este comando permite mapear la base de datos a clases de C#.

@@ -265,3 +265,4 @@ C:\xampp\htdocs\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\bin\Debug\net6.0\ru
 C:\xampp\htdocs\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\xampp\htdocs\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\xampp\htdocs\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\xampp\htdocs\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\bin\Debug\net6.0\JWT.dll

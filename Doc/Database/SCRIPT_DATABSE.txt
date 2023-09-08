@@ -22,7 +22,9 @@ CREATE TABLE user_wizardtrack (
     id bigint PRIMARY KEY IDENTITY(1,1),
     name nvarchar(50) NOT NULL,
     email nvarchar(50) NOT NULL,
-    password nvarchar(100) NOT NULL
+    password nvarchar(100) NOT NULL,
+    salt VARBINARY(64) NOT NULL
+
 );
 
 CREATE TABLE debt (
