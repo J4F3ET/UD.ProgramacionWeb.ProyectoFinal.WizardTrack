@@ -16,20 +16,6 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServicesContr
     [ApiController]
     public class LoginServiceController : ControllerBase
     {
-        // GET: Account/<LoginController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET Account/<LoginController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST Account/LoginService
         [HttpPost]
         public async Task<UserDTO> Post([FromBody] LoginServiceDTO value)

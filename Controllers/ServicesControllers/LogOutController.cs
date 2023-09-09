@@ -10,16 +10,9 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServicesContr
     [ApiController]
     public class LogOutController : ControllerBase
     {
-        // GET: Account/<LogOutController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         // GET Account/<LogOutController>/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        [HttpGet]
+        public async Task<IActionResult>Get()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Redirect("/Index");

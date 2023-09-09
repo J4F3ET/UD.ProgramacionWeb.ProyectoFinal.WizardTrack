@@ -51,10 +51,5 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServicesContr
                 return new UserDTO(0,"Error al ejecutar la peticion",ex.Message);
             }
         }
-        public async Task<IActionResult> Delete()
-        {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return Redirect("/Index");
-        }
     }
 }

@@ -13,7 +13,6 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models
         private const string privateKey = "[}Z>VTAbs+5mXE3gk@^m";
         private const string publicKey = "-NY/^9U/^G3([s77}pM}sC";
         public byte[] GetSecretKey() => Encoding.UTF8.GetBytes(privateKey + publicKey);
-        public string GetPrivateKey() => privateKey;
 
         public string GeneratorToken(UserDTO user) {
             var token = JwtBuilder.Create().WithAlgorithm(new HMACSHA256Algorithm())
