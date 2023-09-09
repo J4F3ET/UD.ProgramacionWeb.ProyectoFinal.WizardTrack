@@ -10,7 +10,7 @@ using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServicesControllers
+namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.RestControllers
 {
     [Route("Account/[controller]")]
     [ApiController]
