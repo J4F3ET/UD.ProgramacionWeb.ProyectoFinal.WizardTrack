@@ -4,6 +4,7 @@ using JWT.Algorithms;
 using JWT.Builder;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Exceptions;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.Database.Conn;
+using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.DTO;
 
 namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models
 {
@@ -14,7 +15,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models
         public byte[] GetSecretKey() => Encoding.UTF8.GetBytes(privateKey + publicKey);
         public string GetPrivateKey() => privateKey;
 
-        public string GeneratorToken(UserWizardtrack user) {
+        public string GeneratorToken(UserDTO user) {
             var token = JwtBuilder.Create().WithAlgorithm(new HMACSHA256Algorithm())
                         .WithSecret(GetSecretKey())
                         .AddClaim("exp", DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds())
@@ -25,7 +26,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models
             return token;
         }
 
-        public string VerifyToken(string token){
+        public UserDTO? VerifyToken(string token){
             var json = JwtBuilder.Create()
                     .WithAlgorithm(new HMACSHA256Algorithm())
                     .WithSecret(GetSecretKey())
@@ -34,21 +35,20 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models
             try
             {
                 if (json == null) throw new ExceptionEmpyObject("token null");
-
                 DateTimeOffset expClaimDateTime = DateTimeOffset.FromUnixTimeSeconds((long)json["exp"]);
                 TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time"); // Colombia Standard Time
                 DateTime horaColombia = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
 
-                if (expClaimDateTime < horaColombia) return "Invalido";
+                if (expClaimDateTime < horaColombia) return null;
 
             }
             catch (ExceptionEmpyObject ex) {
                 throw ex;
             }
             catch(Exception ex) {
-                throw new Exception ("Fallo la verificacion del token, token nov alido"+ex.Message,ex);
+                throw new Exception ("Fallo la verificacion del token, token no valido"+ex.Message,ex);
             }
-            return "" + json["id"]+ json["email"]+ json["name"];
+            return new UserDTO((long)json["id"],(string)json["email"],(string)json["name"]);
         }
 
         public (string hash, byte[]  salt) HashPassword(string password)

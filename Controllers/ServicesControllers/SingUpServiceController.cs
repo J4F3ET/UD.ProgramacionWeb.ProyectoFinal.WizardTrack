@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Services;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.Database.Conn;
@@ -9,36 +12,49 @@ using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.DTO.ServicesHTTP;
 
 namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServicesControllers
 {
-    [Route("api/[controller]")]
+    [Route("Account/[controller]")]
     [ApiController]
     public class SingUpServiceController : ControllerBase
     {
         ServiceUsuario serviceUsuario = new();
         Seguridad seguridad = new();
-        // POST api/<ValuesController>
+        // POST Account/SingUpService
         [HttpPost]
-        public async Task<UserDTO>? Post([FromBody] SignUpServiceDTO value)
+        public async Task<UserDTO> Post([FromBody] SignUpServiceDTO value)
         {
+            if (value == null) return null;
+            Authentication authentication = new();
             try {
-                if (value == null) return null;
-                UserWizardtrack? userWizardtrack = await serviceUsuario.SelectUser(value.name, value.email);
-                if(userWizardtrack != null) return new UserDTO(0,"Usuario ya existe",value.name+" "+value.email);
+                UserWizardtrack userWizardtrack = await serviceUsuario.SelectUser(value.name, value.email);
+
+                if(userWizardtrack != null)
+                    throw new Exception("Usuario ya registrado");
+
                 await serviceUsuario.SaveUser(value);
                 userWizardtrack = await serviceUsuario.SelectUser(value.name, value.email);
-                if(userWizardtrack == null) return new UserDTO(0, "Error al ejecutar la peticion", "");
-                var token = seguridad.GeneratorToken(userWizardtrack);
-                Response.Cookies.Append("CookieToken", token, new CookieOptions
-                {
-                    HttpOnly = true,
-                    SameSite = SameSiteMode.None,
-                    Secure = true, // Ajusta según tu configuración de HTTPS
-                    Expires = DateTime.Now.AddMinutes(60)
-                });
-                return new UserDTO(userWizardtrack.Id, userWizardtrack.Name, userWizardtrack.Email);
+
+                if(userWizardtrack == null)
+                    throw new Exception("Error al encontrar usuario guardado");
+
+                // Creando sesion de usuario
+                UserDTO userDTO = new(userWizardtrack.Id, userWizardtrack.Name, userWizardtrack.Email);
+                var token = seguridad.GeneratorToken(userDTO);
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(
+                        authentication.GetClaimsIdentity(userDTO,token)
+                    )
+                );
+                return userDTO;
             }
             catch (Exception ex) {
                 return new UserDTO(0,"Error al ejecutar la peticion",ex.Message);
             }
+        }
+        public async Task<IActionResult> Delete()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Redirect("/Index");
         }
     }
 }

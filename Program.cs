@@ -1,8 +1,20 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = "CookieToken";
+        options.LoginPath = "/Account/SingUpService";
+        options.LoginPath = "/Account/LoginService"; // Ruta de inicio de sesión
+        options.ExpireTimeSpan= TimeSpan.FromMinutes(60); // Tiempo de expiración de la cookie
+        options.AccessDeniedPath = "/Index"; // Ruta de acceso denegado
+        // Otras opciones de configuración de cookies
+    });
+;
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -17,7 +29,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

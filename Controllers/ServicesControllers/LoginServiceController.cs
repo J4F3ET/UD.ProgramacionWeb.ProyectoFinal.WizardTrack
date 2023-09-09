@@ -5,18 +5,18 @@ using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.DTO.ServicesHTTP;
 
 namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServicesControllers
 {
-    [Route("api/[controller]")]
+    [Route("Account/[controller]")]
     [ApiController]
     public class LoginServiceController : ControllerBase
     {
-        // GET: api/<LoginController>
+        // GET: Account/<LoginController>
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<LoginController>/5
+        // GET Account/<LoginController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {

@@ -1,16 +1,7 @@
-﻿using JWT.Algorithms;
-using JWT.Serializers;
-using JWT;
-using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.Database.Conn;
-using System.Security.Cryptography;
+﻿using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.Database.Conn;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models;
-using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.DTO;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Exceptions;
-using JWT.Builder;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServicesControllers;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.DTO.ServicesHTTP;
-using Azure;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -44,7 +35,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Services
             }
             catch (Exception ex) {
                 throw new Exception("Fallo al ejecutar la sentecia", ex);
-            } 
+            }
         }
 
         public Task<UserWizardtrack> UpdateUser(UserWizardtrack user)
@@ -68,7 +59,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Services
                     return user;
                 }
             }
-            catch (Exception ex) { 
+            catch (Exception ex) {
                 throw new Exception("Fallo la consulta",ex);
             }
         }
