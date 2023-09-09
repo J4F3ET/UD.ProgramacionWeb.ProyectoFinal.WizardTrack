@@ -9,7 +9,7 @@
 
 ## Glosario de Rutas de REST API
 
-### https://localhost:7178/Account/SingUpService
+### https://localhost:7178/Account/SesionService/singup
 
 1. **POST**: Crear un usuario, este método crea un usuario en la base de datos.
 
@@ -28,10 +28,9 @@
 }
 ```
 
-### https://localhost:7178/Account/LoginService
+### https://localhost:7178/Account/SesionService/login
 
 2. **POST**: Iniciar sesión. Este método inicia sesión en la aplicación.
-en el header debe existtir el parametro Authorization con el valor Basic + base64(email:password).
 
 ```json
 //Objeto para la petición.
@@ -40,9 +39,9 @@ en el header debe existtir el parametro Authorization con el valor Basic + base6
 	"password": "1234"
 }
 ```
-### https://localhost:7178/Account/LogOut
+### https://localhost:7178/Account/SesionService/logout
 
-2. **GET**: Cerrar sesión. Este método cierra sesión en la aplicación.
+2. **DELETE**: Cerrar sesión. Este método cierra sesión en la aplicación.
 
 ## Controladores
 

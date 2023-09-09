@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Services
 {
-    public class ServiceUsuario: IServiceUser
+    public class ServiceUsuario: IUser
     {
         private readonly Seguridad seguridad = new();
 
@@ -48,14 +48,13 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Services
             throw new NotImplementedException();
         }
 
-        public async Task<UserWizardtrack>? SelectUser(string? name, string email)
+        public async Task<UserWizardtrack>? SelectUser(string email)
         {
             try {
-                UserWizardtrack? user = null;
+                UserWizardtrack user = null;
                 using WizardtrackContext context = new();
                 {
-                    if (name == null) { user = await context.UserWizardtracks.FirstOrDefaultAsync(u => u.Email == email); }
-                    else { user = await context.UserWizardtracks.FirstOrDefaultAsync(u => u.Name == name && u.Email == email); }
+                    user = await context.UserWizardtracks.FirstOrDefaultAsync(u => u.Email == email);
                     return user;
                 }
             }
