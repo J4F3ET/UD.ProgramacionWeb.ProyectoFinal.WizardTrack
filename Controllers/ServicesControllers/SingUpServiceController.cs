@@ -16,17 +16,16 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServicesContr
     [ApiController]
     public class SingUpServiceController : ControllerBase
     {
-        ServiceUsuario serviceUsuario = new();
-        Seguridad seguridad = new();
         // POST Account/SingUpService
         [HttpPost]
         public async Task<UserDTO> Post([FromBody] SignUpServiceDTO value)
         {
+            ServiceUsuario serviceUsuario = new();
+            Seguridad seguridad = new();
             if (value == null) return null;
             Authentication authentication = new();
             try {
                 UserWizardtrack userWizardtrack = await serviceUsuario.SelectUser(value.name, value.email);
-
                 if(userWizardtrack != null)
                     throw new Exception("Usuario ya registrado");
 
