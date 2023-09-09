@@ -5,9 +5,9 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Interfaces
 {
     public interface IUser
     {
-        Task<UserWizardtrack> SaveUser(SignUpServiceDTO user);
-        Task<UserWizardtrack> UpdateUser(UserWizardtrack user);
-        Task<UserWizardtrack> DeleteUser(UserWizardtrack? user, string id);
-        Task<UserWizardtrack>? SelectUser(string email);
+        Task<UserWizardtrack> Save(SignUpServiceDTO user);
+        Task<UserWizardtrack> Update(UserWizardtrack user);
+        Task<UserWizardtrack> Delete(UserWizardtrack user);
+        Task<UserWizardtrack>? FindByEmail(string email);
     }
 }

@@ -11,7 +11,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Services
     {
         private readonly Seguridad seguridad = new();
 
-        public async Task<UserWizardtrack> SaveUser(SignUpServiceDTO user)
+        public async Task<UserWizardtrack> Save(SignUpServiceDTO user)
         {
             try
             {
@@ -38,17 +38,17 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Services
             }
         }
 
-        public Task<UserWizardtrack> UpdateUser(UserWizardtrack user)
+        public Task<UserWizardtrack> Update(UserWizardtrack user)
         {
             throw new NotImplementedException();
         }
 
-        public Task<UserWizardtrack> DeleteUser(UserWizardtrack? user, string id)
+        public Task<UserWizardtrack> Delete(UserWizardtrack user)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<UserWizardtrack>? SelectUser(string email)
+        public async Task<UserWizardtrack>? FindByEmail(string email)
         {
             try {
                 UserWizardtrack user = null;

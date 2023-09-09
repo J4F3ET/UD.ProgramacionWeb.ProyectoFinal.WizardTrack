@@ -5,10 +5,10 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Interfac
 {
     public interface ISpend
     {
-        Task<Spent> SaveSpent(Spent spent);
-        Task<Spent> GetSpentById(UserDTO user,long id);
-        Task<List<Spent>> GetSpents(UserDTO user);
-        Task<Spent> UpdateSpent(Spent spent);
-        Task<Spent> DeleteSpentById(UserDTO user,long id);
+        Task<Spent> Save(Spent spent);
+        Task<Spent> Update(Spent spent);
+        Task<Spent> DeleteById(UserDTO user,long id);
+        Task<Spent> FindById(UserDTO user,long id);
+        Task<IEnumerable<Spent>> GetAll(UserDTO user);
     }
 }

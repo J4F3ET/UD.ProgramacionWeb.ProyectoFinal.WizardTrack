@@ -26,12 +26,12 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServicesContr
             Authentication authentication = new();
             try
             {
-                UserWizardtrack userWizardtrack = await serviceUsuario.SelectUser(value.email);
+                UserWizardtrack userWizardtrack = await serviceUsuario.FindByEmail(value.email);
                 if (userWizardtrack != null)
                     throw new Exception("Usuario ya registrado");
 
-                await serviceUsuario.SaveUser(value);
-                userWizardtrack = await serviceUsuario.SelectUser(value.email);
+                await serviceUsuario.Save(value);
+                userWizardtrack = await serviceUsuario.FindByEmail(value.email);
 
                 if (userWizardtrack == null)
                     throw new ArgumentNullException("Error al encontrar usuario guardado");
@@ -64,7 +64,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServicesContr
                 if (value == null)
                     throw new ArgumentNullException("Value es null");
 
-                UserWizardtrack userWizardtrack = await service.SelectUser(value.email)
+                UserWizardtrack userWizardtrack = await service.FindByEmail(value.email)
                     ?? throw new ArgumentNullException("Usuario no existe");
 
                 if (!seguridad.VerifyPassword(userWizardtrack.Password, userWizardtrack.Salt, value.password))
