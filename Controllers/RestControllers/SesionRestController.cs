@@ -14,9 +14,9 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.RestControlle
 {
     [Route("Account/[controller]")]
     [ApiController]
-    public class SesionServiceController : ControllerBase
+    public class SesionRestController : ControllerBase
     {
-        // POST Account/<SesionServiceController>/singup
+        // POST Account/<SesionRestController>/singup
         [HttpPost("singup")]
         public async Task<UserDTO> Post([FromBody] SignUpServiceDTO value)
         {
@@ -83,7 +83,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.RestControlle
                 return new UserDTO(0, ex.Message, "");
             }
         }
-        // POST Account/<SesionServiceController>/logout
+        // POST Account/<SesionRestontroller>/logout
         [HttpPost("logout")]
         public async Task<IActionResult> Post()
         {

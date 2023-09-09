@@ -8,6 +8,6 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Interfaces
         Task<UserWizardtrack> Save(SignUpServiceDTO user);
         Task<UserWizardtrack> Update(UserWizardtrack user);
         Task<UserWizardtrack> Delete(UserWizardtrack user);
-        Task<UserWizardtrack>? FindByEmail(string email);
+        Task<UserWizardtrack> FindByEmail(string email);
     }
 }

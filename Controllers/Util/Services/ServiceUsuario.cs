@@ -38,17 +38,49 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Services
             }
         }
 
-        public Task<UserWizardtrack> Update(UserWizardtrack user)
+        public  Task<UserWizardtrack> Update(UserWizardtrack user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (user != null)
+                {
+                    using WizardtrackContext context = new();
+                    {
+                        context.UserWizardtracks.Update(user);
+                        context.SaveChanges();
+                        return Task.FromResult(user);
+                    }
+                }
+                else throw new ExceptionEmpyObject("usuario vacio");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Fallo al ejecutar la sentecia", ex);
+            }
         }
 
-        public Task<UserWizardtrack> Delete(UserWizardtrack user)
+        public  Task<UserWizardtrack> Delete(UserWizardtrack user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (user != null)
+                {
+                    using WizardtrackContext context = new();
+                    {
+                        context.UserWizardtracks.Remove(user);
+                        context.SaveChanges();
+                        return Task.FromResult(user);
+                    }
+                }
+                else throw new ExceptionEmpyObject("usuario vacio");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Fallo al ejecutar la sentecia", ex);
+            }
         }
 
-        public async Task<UserWizardtrack>? FindByEmail(string email)
+        public async Task<UserWizardtrack> FindByEmail(string email)
         {
             try {
                 UserWizardtrack user = null;
