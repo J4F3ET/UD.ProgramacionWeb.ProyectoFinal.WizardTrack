@@ -34,7 +34,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServicesContr
                 userWizardtrack = await serviceUsuario.SelectUser(value.name, value.email);
 
                 if(userWizardtrack == null)
-                    throw new Exception("Error al encontrar usuario guardado");
+                    throw new ArgumentNullException("Error al encontrar usuario guardado");
 
                 // Creando sesion de usuario
                 UserDTO userDTO = new(userWizardtrack.Id, userWizardtrack.Name, userWizardtrack.Email);
