@@ -1,7 +1,16 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Controllers",
+    "\\Controllers\\ViewsControllers",
+    "\\Models",
+    "\\Models\\Database",
+    "\\Models\\Database\\Conn",
+    "\\Views",
+    "\\Views\\Login",
+    "\\Views\\Shared",
+    "\\Views\\User"
   ],
-  "SelectedNode": "\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack.sln",
+  "SelectedNode": "\\Controllers\\ViewsControllers\\LoginController.cs",
   "PreviewInSolutionExplorer": false
 }

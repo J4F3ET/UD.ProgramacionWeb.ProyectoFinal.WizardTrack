@@ -1,7 +1,5 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using JWT.Algorithms;
-using JWT.Builder;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Exceptions;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.Database.Conn;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.DTO;
@@ -10,45 +8,6 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models
 {
     public class Seguridad
     {
-        private const string privateKey = "[}Z>VTAbs+5mXE3gk@^m";
-        private const string publicKey = "-NY/^9U/^G3([s77}pM}sC";
-        public byte[] GetSecretKey() => Encoding.UTF8.GetBytes(privateKey + publicKey);
-
-        public string GeneratorToken(UserDTO user) {
-            var token = JwtBuilder.Create().WithAlgorithm(new HMACSHA256Algorithm())
-                        .WithSecret(GetSecretKey())
-                        .AddClaim("exp", DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds())
-                        .AddClaim("id", user.Id)
-                        .AddClaim("name", user.Name)
-                        .AddClaim("email", user.Email)
-                        .Encode();
-            return token;
-        }
-
-        public UserDTO? VerifyToken(string token){
-            var json = JwtBuilder.Create()
-                    .WithAlgorithm(new HMACSHA256Algorithm())
-                    .WithSecret(GetSecretKey())
-                    .MustVerifySignature()
-                    .Decode<IDictionary<string, object>>(token);
-            try
-            {
-                if (json == null) throw new ExceptionEmpyObject("token null");
-                DateTimeOffset expClaimDateTime = DateTimeOffset.FromUnixTimeSeconds((long)json["exp"]);
-                TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time"); // Colombia Standard Time
-                DateTime horaColombia = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timeZone);
-
-                if (expClaimDateTime < horaColombia) return null;
-
-            }
-            catch (ExceptionEmpyObject ex) {
-                throw ex;
-            }
-            catch(Exception ex) {
-                throw new Exception ("Fallo la verificacion del token, token no valido"+ex.Message,ex);
-            }
-            return new UserDTO((long)json["id"],(string)json["email"],(string)json["name"]);
-        }
 
         public (string hash, byte[]  salt) HashPassword(string password)
         {

@@ -10,6 +10,8 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = UD.ProgramacionWeb.ProyectoFinal.WizardTrack
 build_property.RootNamespace = UD.ProgramacionWeb.ProyectoFinal.WizardTrack
 build_property.ProjectDir = c:\xampp\htdocs\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
@@ -26,6 +28,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [c:/xampp/htdocs/UD.ProgramacionWeb.ProyectoFinal.WizardTrack/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/xampp/htdocs/UD.ProgramacionWeb.ProyectoFinal.WizardTrack/Views/User/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [c:/xampp/htdocs/UD.ProgramacionWeb.ProyectoFinal.WizardTrack/Views/_ViewImports.cshtml]

@@ -5,6 +5,30 @@
       "PackagePath": "staticwebassets\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack.bundle.scp.css"
     },
     {
+      "Id": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\wwwroot\\assets\\icons\\bank.svg",
+      "PackagePath": "staticwebassets\\assets\\icons\\bank.svg"
+    },
+    {
+      "Id": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\wwwroot\\assets\\icons\\cash-coin.svg",
+      "PackagePath": "staticwebassets\\assets\\icons\\cash-coin.svg"
+    },
+    {
+      "Id": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\wwwroot\\assets\\icons\\graph-down.svg",
+      "PackagePath": "staticwebassets\\assets\\icons\\graph-down.svg"
+    },
+    {
+      "Id": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\wwwroot\\assets\\icons\\house.svg",
+      "PackagePath": "staticwebassets\\assets\\icons\\house.svg"
+    },
+    {
+      "Id": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\wwwroot\\assets\\icons\\piggy-bank.svg",
+      "PackagePath": "staticwebassets\\assets\\icons\\piggy-bank.svg"
+    },
+    {
+      "Id": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\wwwroot\\assets\\icons\\wallet.svg",
+      "PackagePath": "staticwebassets\\assets\\icons\\wallet.svg"
+    },
+    {
       "Id": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\wwwroot\\css\\input.css",
       "PackagePath": "staticwebassets\\css\\input.css"
     },

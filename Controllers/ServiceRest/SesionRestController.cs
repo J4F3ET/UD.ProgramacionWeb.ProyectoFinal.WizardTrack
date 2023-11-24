@@ -38,11 +38,10 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.RestControlle
 
                 // Creando sesion de usuario
                 UserDTO userDTO = new(userWizardtrack.Id, userWizardtrack.Name, userWizardtrack.Email);
-                var token = seguridad.GeneratorToken(userDTO);
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(
-                        authentication.GetClaimsIdentity(userDTO, token)
+                        authentication.GetClaimIdentity(userDTO)
                     )
                 );
                 return userDTO;
@@ -74,7 +73,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.RestControlle
 
                 await HttpContext.SignInAsync(
                         CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(authentication.GetClaimsIdentity(userDTO))
+                        new ClaimsPrincipal(authentication.GetClaimIdentity(userDTO))
                     );
                 return userDTO;
             }
