@@ -7,8 +7,8 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Interfac
     {
         Task<SaveCount> Save(SaveCount saveCount);
         Task<SaveCount> Update(SaveCount saveCount);
-        Task<SaveCount> DeleteById(UserDTO user,long id);
-        Task<SaveCount> FindById(UserDTO user,long id);
+        Task<SaveCount> DeleteById(long id);
+        Task<SaveCount> FindById(long id);
         Task<IEnumerable<SaveCount>> GetAll(UserDTO user);
     }
 }
