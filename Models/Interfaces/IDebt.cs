@@ -5,10 +5,10 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Interfac
 {
     public interface IDebt
     {
-        Task <Debt> Save(Debt debt);
-        Task <Debt> Update(Debt debt);
-        Task <Debt> DeleteById(UserDTO user,long id);
-        Task <Debt> FindById(UserDTO user,long id);
-        Task <IEnumerable<Debt>> GetAll(UserDTO user);
+        Task <Debt>? Save(Debt debt);
+        Task <Debt>? Update(Debt debt);
+        Task <Debt>? DeleteById(Debt debt);
+        Task <Debt>? FindById(UserDTO user,long id);
+        Task <IEnumerable<Debt>>? GetAll(UserDTO user);
     }
 }

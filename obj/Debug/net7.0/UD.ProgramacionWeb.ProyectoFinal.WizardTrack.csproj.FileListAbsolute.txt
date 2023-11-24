@@ -17,7 +17,6 @@ C:\xampp\htdocs\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\bin\Debug\net7.0\UD
 C:\xampp\htdocs\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\bin\Debug\net7.0\Azure.Core.dll
 C:\xampp\htdocs\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\bin\Debug\net7.0\Azure.Identity.dll
 C:\xampp\htdocs\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\bin\Debug\net7.0\Humanizer.dll
-C:\xampp\htdocs\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\bin\Debug\net7.0\JWT.dll
 C:\xampp\htdocs\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\bin\Debug\net7.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\xampp\htdocs\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\bin\Debug\net7.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\xampp\htdocs\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\bin\Debug\net7.0\Microsoft.Build.dll
