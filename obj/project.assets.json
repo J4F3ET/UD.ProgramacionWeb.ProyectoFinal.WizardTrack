@@ -11277,19 +11277,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jafet\\.nuget\\packages\\": {}
+    "C:\\Users\\WBES_\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack.csproj",
+      "projectUniqueName": "C:\\Users\\WBES_\\OneDrive\\Escritorio\\progWeb\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack.csproj",
       "projectName": "UD.ProgramacionWeb.ProyectoFinal.WizardTrack",
-      "projectPath": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack.csproj",
-      "packagesPath": "C:\\Users\\jafet\\.nuget\\packages\\",
-      "outputPath": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\obj\\",
+      "projectPath": "C:\\Users\\WBES_\\OneDrive\\Escritorio\\progWeb\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack.csproj",
+      "packagesPath": "C:\\Users\\WBES_\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\WBES_\\OneDrive\\Escritorio\\progWeb\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\jafet\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\WBES_\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
