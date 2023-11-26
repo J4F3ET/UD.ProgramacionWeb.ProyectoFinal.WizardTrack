@@ -21,6 +21,14 @@
       "PackagePath": "staticwebassets\\assets\\icons\\house.svg"
     },
     {
+      "Id": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\wwwroot\\assets\\icons\\icono.ico",
+      "PackagePath": "staticwebassets\\assets\\icons\\icono.ico"
+    },
+    {
+      "Id": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\wwwroot\\assets\\icons\\icono.png",
+      "PackagePath": "staticwebassets\\assets\\icons\\icono.png"
+    },
+    {
       "Id": "C:\\xampp\\htdocs\\UD.ProgramacionWeb.ProyectoFinal.WizardTrack\\wwwroot\\assets\\icons\\piggy-bank.svg",
       "PackagePath": "staticwebassets\\assets\\icons\\piggy-bank.svg"
     },

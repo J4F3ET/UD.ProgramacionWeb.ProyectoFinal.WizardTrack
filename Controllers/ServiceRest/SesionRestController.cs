@@ -17,7 +17,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.RestControlle
     public class SesionRestController : ControllerBase
     {
         // POST Account/<SesionRestController>/singup
-        [HttpPost("singup")]
+        [HttpPost("signup")]
         public async Task<UserDTO> Post([FromBody] SignUpServiceDTO value)
         {
             ServiceUsuario serviceUsuario = new();

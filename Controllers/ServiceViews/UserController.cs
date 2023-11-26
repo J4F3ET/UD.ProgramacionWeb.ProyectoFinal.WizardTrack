@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ViewsControllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         // GET: UserController
