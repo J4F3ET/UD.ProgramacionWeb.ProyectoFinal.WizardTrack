@@ -1,4 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.ObjectModel;
+using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services;
+using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.Database.Conn;
+using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.DTO;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +12,18 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
     [ApiController]
     public class DataRestController : ControllerBase
     {
+        private static readonly ServiceDebt serviceDebt = new();
+        private static readonly ServiceIncome serviceIncome = new();
+        private static readonly ServiceSpent serviceSpent = new();
         // GET: api/<UserIndexController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<UserIndexController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<UserIndexController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IEnumerable<List<object>>> Post([FromBody] UserDTO user)
         {
-        }
-
-        // PUT api/<UserIndexController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<UserIndexController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            List<Debt> debts = (await serviceDebt.GetAll(user)).ToList();
+            List<Income> incomes = (await serviceIncome.GetAll(user)).ToList();
+            List<Spent> spents = (await serviceSpent.GetAll(user)).ToList();
+            var result = new List<List<object>> { debts.Cast<object>().ToList(), incomes.Cast<object>().ToList(), spents.Cast<object>().ToList() };
+            return result;
         }
     }
 }

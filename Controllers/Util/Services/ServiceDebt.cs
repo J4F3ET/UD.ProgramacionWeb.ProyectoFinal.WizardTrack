@@ -41,21 +41,22 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
             return debt;
         }
 
-        public async Task<Debt>? DeleteById(Debt debt)
+        public async Task<Debt>? DeleteById(long id)
         {
             try
             { 
                 using WizardtrackContext context = new();
                 {
-                    var existDebt = await context.Debts.FindAsync(debt.Id) ?? throw new Exception();
+                    var existDebt = await context.Debts.FindAsync(id) ?? throw new Exception();
                     context.Debts.Remove(existDebt);
                     context.SaveChanges();
+                    return existDebt;
                 }
             }catch (Exception) { return null; }
-            return debt;
+            
         }
 
-        public async Task<Debt>? FindById(UserDTO user, long id)
+        public async Task<Debt>? FindById(long id)
         {
             try
             {
