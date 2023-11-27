@@ -14,11 +14,10 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
         private static readonly ServiceIncome serviceIncome = new();
         // POST: api/<IncomeRestController>
         [HttpPost]
-        public IEnumerable<Income> Get([FromBody] UserDTO user)
+        public Income Post([FromBody] Income income)
         {
-            return serviceIncome.GetAll(user).GetAwaiter().GetResult();
+            return serviceIncome.Save(income).GetAwaiter().GetResult();
         }
-
         // GET api/<IncomeRestController>/5
         [HttpGet("{id}")]
         public Income Get(long id)

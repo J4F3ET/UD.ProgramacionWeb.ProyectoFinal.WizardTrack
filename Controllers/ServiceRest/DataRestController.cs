@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Elfie.Model.Map;
 using System.Collections.ObjectModel;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.Database.Conn;
@@ -18,13 +19,19 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
         private static readonly ServiceSaveCount serviceSaveCount = new();
         // GET: api/<UserIndexController>
         [HttpPost]
-        public async Task<IEnumerable<List<object>>> Post([FromBody] UserDTO user)
+        public async Task<Dictionary<string, List<object>>> Post([FromBody] UserDTO user)
         {
             List<Debt> debts = (await serviceDebt.GetAll(user)).ToList();
             List<Income> incomes = (await serviceIncome.GetAll(user)).ToList();
             List<Spent> spents = (await serviceSpent.GetAll(user)).ToList();
             List<SaveCount> saveCounts = (await serviceSaveCount.GetAll(user)).ToList();
-            var result = new List<List<object>> { debts.Cast<object>().ToList(), incomes.Cast<object>().ToList(), spents.Cast<object>().ToList(),saveCounts.Cast<object>().ToList() };
+            var result = new Dictionary<string, List<object>>
+            {
+                { "debts", debts.Cast<object>().ToList() },
+                { "incomes", incomes.Cast<object>().ToList() },
+                { "spents", spents.Cast<object>().ToList() },
+                { "saveCounts", saveCounts.Cast<object>().ToList() }
+            };
             return result;
         }
     }

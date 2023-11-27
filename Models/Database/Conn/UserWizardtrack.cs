@@ -5,6 +5,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.Database.Conn;
 
 public partial class UserWizardtrack
 {
+    public UserWizardtrack(){}
     public UserWizardtrack(string name,string email,string password, byte[]? salt)
     {
         Name = name;

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ViewsControllers
 {
-    [Authorize]
     public class UserController : Controller
     {
         // GET: UserController
