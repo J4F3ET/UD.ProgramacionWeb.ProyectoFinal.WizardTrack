@@ -26,7 +26,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
             return serviceSpent.FindById(id).GetAwaiter().GetResult();
         }
         // PUT api/<SpentRestController>/5
-        [HttpPut("{id}")]
+        [HttpPut]
         public Spent Put([FromBody] Spent spent)
         {
             return serviceSpent.Update(spent).GetAwaiter().GetResult();

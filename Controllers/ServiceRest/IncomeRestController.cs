@@ -26,7 +26,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
             return serviceIncome.FindById(id).GetAwaiter().GetResult();
         }
         // PUT api/<IncomeRestController>/5
-        [HttpPut("{id}")]
+        [HttpPut]
         public Income Put([FromBody]Income  income)
         {
             return serviceIncome.Update(income).GetAwaiter().GetResult();

@@ -15,6 +15,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
         private static readonly ServiceDebt serviceDebt = new();
         private static readonly ServiceIncome serviceIncome = new();
         private static readonly ServiceSpent serviceSpent = new();
+        private static readonly ServiceSaveCount serviceSaveCount = new();
         // GET: api/<UserIndexController>
         [HttpPost]
         public async Task<IEnumerable<List<object>>> Post([FromBody] UserDTO user)
@@ -22,7 +23,8 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
             List<Debt> debts = (await serviceDebt.GetAll(user)).ToList();
             List<Income> incomes = (await serviceIncome.GetAll(user)).ToList();
             List<Spent> spents = (await serviceSpent.GetAll(user)).ToList();
-            var result = new List<List<object>> { debts.Cast<object>().ToList(), incomes.Cast<object>().ToList(), spents.Cast<object>().ToList() };
+            List<SaveCount> saveCounts = (await serviceSaveCount.GetAll(user)).ToList();
+            var result = new List<List<object>> { debts.Cast<object>().ToList(), incomes.Cast<object>().ToList(), spents.Cast<object>().ToList(),saveCounts.Cast<object>().ToList() };
             return result;
         }
     }
