@@ -8,8 +8,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         options.Cookie.Name = "CookieToken";
-        options.LoginPath = "/Account/SingUpService";
-        options.LoginPath = "/Account/LoginService"; // Ruta de inicio de sesión
+        options.LoginPath = "/Index";
+        options.LoginPath = "/Index"; // Ruta de inicio de sesión
         options.ExpireTimeSpan= TimeSpan.FromMinutes(60); // Tiempo de expiración de la cookie
         options.AccessDeniedPath = "/Index"; // Ruta de acceso denegado
         // Otras opciones de configuración de cookies

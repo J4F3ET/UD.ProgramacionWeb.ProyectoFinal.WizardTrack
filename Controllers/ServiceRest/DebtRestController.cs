@@ -13,29 +13,34 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
     public class DebtRestController : ControllerBase
     {
         private static readonly ServiceDebt serviceDebt = new();
-        [HttpPost]
-        public IEnumerable<Debt> Post([FromBody]UserDTO user)
+        [HttpPost("All")]
+        public Task<IEnumerable<Debt>> GetAll([FromBody]UserDTO user)
         {
-            return serviceDebt.GetAll(user).GetAwaiter().GetResult();
+            return serviceDebt.GetAll(user);
+        }
+        [HttpPost]
+        public Task<Debt>Post([FromBody] Debt debt)
+        {
+            return serviceDebt.Save(debt);
         }
         // GET api/<DebtRestController>/5
         [HttpGet("{id}")]
-        public Debt Get(long id)
+        public Task<Debt> Get(long id)
         {
-            return serviceDebt.FindById(id).GetAwaiter().GetResult();
+            return serviceDebt.FindById(id);
         }
         // PUT api/<DebtRestController>/5
         [HttpPut]
-        public Debt Put([FromBody] Debt debt)
+        public Task<Debt> Put([FromBody] Debt debt)
         {
-           return serviceDebt.Update(debt).GetAwaiter().GetResult();
+           return serviceDebt.Update(debt);
         }
 
         // DELETE api/<DebtRestController>/5
         [HttpDelete("{id}")]
-        public Debt Delete(long id)
+        public Task<Debt> Delete(long id)
         {
-            return serviceDebt.DeleteById(id).GetAwaiter().GetResult();
+            return serviceDebt.DeleteById(id);
         }
     }
 }

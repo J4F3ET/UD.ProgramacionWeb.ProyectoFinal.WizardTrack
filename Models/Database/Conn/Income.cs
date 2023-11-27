@@ -1,10 +1,20 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.Database.Conn;
 
 public partial class Income
 {
+    public Income(){}
+    public Income(long idUser , decimal amount ,byte frecuency, DateTime incomeDate,string descrition,string name) {
+        IdUser = idUser;
+        Amount = amount;
+        Frecuency = frecuency;
+        IncomeDate = incomeDate;
+        Description = descrition;
+        Name = name;
+    }
     public long Id { get; set; }
 
     public long IdUser { get; set; }

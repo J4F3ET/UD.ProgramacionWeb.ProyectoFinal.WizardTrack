@@ -21,7 +21,6 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.RestControlle
         public async Task<UserDTO> Post([FromBody] SignUpServiceDTO value)
         {
             ServiceUsuario serviceUsuario = new();
-            Seguridad seguridad = new();
             if (value == null) return null;
             Authentication authentication = new();
             try

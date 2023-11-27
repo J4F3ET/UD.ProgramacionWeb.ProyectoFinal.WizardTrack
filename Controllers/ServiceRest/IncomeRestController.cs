@@ -14,29 +14,33 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
         private static readonly ServiceIncome serviceIncome = new();
         // POST: api/<IncomeRestController>
         [HttpPost]
-        public IEnumerable<Income> Get([FromBody] UserDTO user)
+        public Task<Income> Post([FromBody] Income income)
         {
-            return serviceIncome.GetAll(user).GetAwaiter().GetResult();
+            return serviceIncome.Save(income);
         }
-
+        [HttpPost("All")]
+        public Task<IEnumerable<Income>> GetAll([FromBody] UserDTO user)
+        {
+            return serviceIncome.GetAll(user);
+        }
         // GET api/<IncomeRestController>/5
         [HttpGet("{id}")]
-        public Income Get(long id)
+        public Task<Income> Get(long id)
         {
-            return serviceIncome.FindById(id).GetAwaiter().GetResult();
+            return serviceIncome.FindById(id);
         }
         // PUT api/<IncomeRestController>/5
         [HttpPut]
-        public Income Put([FromBody]Income  income)
+        public Task<Income> Put([FromBody]Income  income)
         {
-            return serviceIncome.Update(income).GetAwaiter().GetResult();
+            return serviceIncome.Update(income);
         }
 
         // DELETE api/<IncomeRestController>/5
         [HttpDelete("{id}")]
-        public Income Delete(long id)
+        public Task<Income> Delete(long id)
         {
-            return serviceIncome.DeleteById(id).GetAwaiter().GetResult();
+            return serviceIncome.DeleteById(id);
         }
     }
 }

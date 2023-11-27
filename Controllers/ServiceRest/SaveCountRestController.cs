@@ -13,30 +13,35 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
     {
         private static readonly ServiceSaveCount serviceSaveCount = new();
         // POST: api/<SaveCountRestController>
-        [HttpPost]
-        public IEnumerable<SaveCount> Post([FromBody] UserDTO user)
+        [HttpPost("All")]
+        public Task<IEnumerable<SaveCount>> GetAll([FromBody] UserDTO user)
         {
-            return serviceSaveCount.GetAll(user).GetAwaiter().GetResult();
+            return serviceSaveCount.GetAll(user);
+        }
+        [HttpPost]
+        public Task<SaveCount> Post(SaveCount saveCount)
+        {
+            return serviceSaveCount.Save(saveCount);
         }
 
         // GET api/<SaveCountRestController>/5
         [HttpGet("{id}")]
-        public SaveCount Get(long id)
+        public Task<SaveCount> Get(long id)
         {
-            return serviceSaveCount.FindById(id).GetAwaiter().GetResult();
+            return serviceSaveCount.FindById(id);
         }
         // PUT api/<SaveCountRestController>/5
         [HttpPut]
-        public SaveCount Put([FromBody] SaveCount saveCount)
+        public Task<SaveCount> Put([FromBody] SaveCount saveCount)
         {
-            return serviceSaveCount.Update(saveCount).GetAwaiter().GetResult();
+            return serviceSaveCount.Update(saveCount);
         }
 
         // DELETE api/<SaveCountRestController>/5
         [HttpDelete("{id}")]
-        public SaveCount Delete(long id)
+        public Task<SaveCount> Delete(long id)
         {
-            return serviceSaveCount.DeleteById(id).GetAwaiter().GetResult();
+            return serviceSaveCount.DeleteById(id);
         }
     }
 }
