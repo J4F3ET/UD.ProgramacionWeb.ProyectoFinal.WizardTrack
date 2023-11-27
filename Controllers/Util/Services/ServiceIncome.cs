@@ -8,7 +8,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
 {
     public class ServiceIncome : IIncome
     {
-        async Task<Income> IIncome.DeleteById(long id)
+        public async Task<Income> DeleteById(long id)
         {
             try
             {
@@ -23,7 +23,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
             }catch (Exception ex) { return null; }
         }
 
-        async Task<Income> IIncome.FindById(long id)
+        public async Task<Income> FindById(long id)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
             catch (Exception ex) { return null; }
         }
 
-        async Task<IEnumerable<Income>> IIncome.GetAll(UserDTO user)
+        public async Task<IEnumerable<Income>> GetAll(UserDTO user)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
             catch (Exception ex) { return null; }
         }
 
-        async Task<Income> IIncome.Save(Income income)
+        public async Task<Income> Save(Income income)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
             return income;
         }
 
-        async Task<Income> IIncome.Update(Income income)
+        public async Task<Income> Update(Income income)
         {
             try
             {
