@@ -13,30 +13,35 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
     {
         private static readonly ServiceSpent serviceSpent = new();
         // POST: api/<SpentRestController>
-        [HttpPost]
-        public IEnumerable<Spent> Post([FromBody] UserDTO user)
+        [HttpPost("All")]
+        public Task<IEnumerable<Spent>> GetAll([FromBody] UserDTO user)
         {
-            return serviceSpent.GetAll(user).GetAwaiter().GetResult();
+            return serviceSpent.GetAll(user);
+        }
+        [HttpPost]
+        public Task<Spent> Post([FromBody] Spent spent)
+        {
+            return serviceSpent.Save(spent);
         }
 
         // GET api/<SpentRestController>/5
         [HttpGet("{id}")]
-        public Spent Get(long id)
+        public Task<Spent> Get(long id)
         {
-            return serviceSpent.FindById(id).GetAwaiter().GetResult();
+            return serviceSpent.FindById(id);
         }
         // PUT api/<SpentRestController>/5
         [HttpPut]
-        public Spent Put([FromBody] Spent spent)
+        public Task<Spent> Put([FromBody] Spent spent)
         {
-            return serviceSpent.Update(spent).GetAwaiter().GetResult();
+            return serviceSpent.Update(spent);
         }
 
         // DELETE api/<SpentRestController>/5
         [HttpDelete("{id}")]
-        public Spent Delete(int id)
+        public Task<Spent> Delete(int id)
         {
-            return serviceSpent.DeleteById(id).GetAwaiter().GetResult();
+            return serviceSpent.DeleteById(id);
         }
     }
 }
