@@ -1,25 +1,42 @@
 document.getElementById("listIncome");
 document.getElementById("listDebt");
 document.getElementById("listSpent");
+function assetsType(data, type) {
+	var date;
+	var assets;
+	var id;
+	switch (type) {
+		case "debt":
+			id = `debt-${data.id}`;
+			date = new Date(data.starDate);
+			assets = "../assets/icons/bank.svg";
+			break;
+		case "spent":
+			id = `spent-${data.id}`;
+			date = new Date(data.spentDate);
+			assets = "../assets/icons/piggy-bank.svg";
+			break;
+		default:
+			id = `income-${data.id}`;
+			date = new Date(data.incomeDate);
+			assets = "../assets/icons/wallet.svg";
+			break;
+	}
+	date = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+	return {id, date, assets};
+}
 function generatorItem(data, type) {
+	console.log(data.name);
+	var assets = assetsType(data, type);
 	var item = document.createElement("li");
 	item.classList.add("list-group-item");
 	item.classList.add("list-group-item-action");
 	item.classList.add("d-flex");
+	item.classList.add("justify-content-between");
 	item.classList.add("gap-3");
 	item.classList.add("py-3");
 	var image = document.createElement("img");
-	switch (type) {
-		case "debt":
-			image.src = "~/assets/icons/bank.svg";
-			break;
-		case "spent":
-			image.src = "~/assets/icons/piggy-bank.svg";
-			break;
-		default:
-			image.src = "~/assets/icons/wallet.svg";
-			break;
-	}
+	image.src = assets.assets;
 	image.alt = "twbs";
 	image.width = "32";
 	image.height = "32";
@@ -34,42 +51,22 @@ function generatorItem(data, type) {
 	var divInterno1 = document.createElement("div");
 	var h6 = document.createElement("h6");
 	h6.classList.add("mb-0");
-	h6.innerText = data.name;
+	h6.innerText = (data.name.size > 13)? data.name.substring(0, 10) + "...":data.name.substring(0, 13);
 	var p = document.createElement("p");
 	p.classList.add("mb-0");
 	p.classList.add("opacity-75");
-	p.innerText = data.description;
+	p.innerText = data.description.substring(0, 5) + "...";
 	divInterno1.appendChild(h6);
+	divInterno1.appendChild(p);
 	// Div interno 2
 	var divInterno2 = document.createElement("div");
 	var small = document.createElement("small");
 	small.classList.add("opacity-50");
 	small.classList.add("text-nowrap");
 	small.classList.add("me-3");
-	switch (type) {
-		case "debt":
-			let date = new Date(data.starDate);
-			small.innerText = IPOfecha.setTime(date);
-			break;
-		case "spent":
-			small.innerText = new Date(data.spentDate);
-			break;
-		default:
-			small.innerText = new Date(data.incomeDate);
-			break;
-	}
+	small.innerText = assets.date;
 	var input = document.createElement("input");
-	switch (type) {
-		case "debt":
-			input.id = `debt-${data.id}`;
-			break;
-		case "spent":
-			input.id = `spent-${data.id}`;
-			break;
-		default:
-			input.id = `income-${data.id}`;
-			break;
-	}
+	input.id = assets.id;
 	input.type = "checkbox";
 	input.classList.add("btn-check");
 	var label = document.createElement("label");
