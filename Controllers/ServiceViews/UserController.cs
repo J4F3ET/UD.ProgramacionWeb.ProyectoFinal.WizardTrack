@@ -12,6 +12,10 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ViewsControll
         // GET: UserController
         public ActionResult Index()
 		{
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "");
+            }
             var name = User.FindFirstValue(ClaimTypes.Name);
             var email = User.FindFirstValue(ClaimTypes.Email);
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);

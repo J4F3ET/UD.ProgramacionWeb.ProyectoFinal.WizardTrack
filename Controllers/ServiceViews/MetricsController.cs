@@ -8,6 +8,10 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceViews
         // GET: MetricsController
         public ActionResult Index()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "");
+            }
             return View();
         }
 
