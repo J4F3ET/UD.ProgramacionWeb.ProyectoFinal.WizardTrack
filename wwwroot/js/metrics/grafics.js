@@ -196,6 +196,7 @@ const statisticIncomeDebtSpent = (dataRest) => {
 		data: data,
 		options: {
 			responsive: true,
+			responsive: true,
 			maintainAspectRatio: false,
 			elements: {
 				bar: {
