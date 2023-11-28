@@ -31,7 +31,7 @@ function fetchData(callBack) {
 	const Email = userData.email;
 	const Name = userData.name;
 	const Id = userData.id;
-	console.log(Email);
+	if (userData == null) return;
 	fetch(url, {
 		method: "POST",
 		body: JSON.stringify({

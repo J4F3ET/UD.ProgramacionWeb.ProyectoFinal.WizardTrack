@@ -3,25 +3,25 @@
     Layout = "_Layout";
 }
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<div class="container text-center">
+<div class="container w-100">
     <div class="row">
-        <div class="col-md-6">
-            <canvas id="statisticIncome"></canvas>
-        </div>
-        <div class="col-md-6">
-            <canvas id="statisticDebt"></canvas>
-        </div>
+        <canvas id="statisticIncome"></canvas>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <canvas id="statisticSpent"></canvas>
+            <div class="row">
+                <canvas id="statisticSpent"></canvas>
+            </div>
+            <div class="row">
+                <div div="divContainerCanvas" >
+                    <canvas id="statisticSaveCount"></canvas>
+                </div>
+            </div>
         </div>
         <div class="col-md-6">
-            <canvas id="statisticIncome2"></canvas>
+
         </div>
     </div>
 </div>
-
-
 <script src="~/js/metrics/data.js"></script>
 <script src="~/js/metrics/grafics.js"></script>
