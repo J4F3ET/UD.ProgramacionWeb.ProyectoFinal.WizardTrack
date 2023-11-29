@@ -66,7 +66,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
             {
                 using WizardtrackContext context = new();
                 {
-                    var spentData = await context.Spents.FindAsync(spent.Id) ?? throw new Exception();
+                    var spentData = await context.Spents.FindAsync(spent.Id, spent.IdUser) ?? throw new Exception();
                     spentData.Amount = spent.Amount;
                     spentData.Name = spent.Name;
                     spentData.SpentDate = spent.SpentDate;

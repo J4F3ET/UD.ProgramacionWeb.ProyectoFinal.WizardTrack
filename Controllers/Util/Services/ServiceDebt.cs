@@ -29,16 +29,19 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
             {
                 using WizardtrackContext context = new();
                 {
-                    var newDebt = await context.Debts.FindAsync(debt.Id) ?? throw new Exception();
+                    Console.WriteLine(debt.Description);
+                    var newDebt = await context.Debts.FindAsync(debt.Id,debt.IdUser) ?? throw new Exception();
                     newDebt.EndDate = debt.EndDate;
                     newDebt.Amount = debt.Amount;
                     newDebt.Interest = debt.Interest;
                     newDebt.Installments  = debt.Installments;
-                    await context.SaveChangesAsync();
+                    newDebt.Description = debt.Description;
+                    newDebt.Name = debt.Name;
+                    context.SaveChanges();
+                    return newDebt;
                 }
             }
             catch (Exception) { return null; }
-            return debt;
         }
 
         public async Task<Debt>? DeleteById(long id, long userId)

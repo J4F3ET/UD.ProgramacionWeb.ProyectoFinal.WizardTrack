@@ -66,7 +66,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
             {
                 using WizardtrackContext context = new();
                 {
-                    var  incomeData= await context.Incomes.FindAsync(income.Id) ?? throw new Exception();
+                    var  incomeData= await context.Incomes.FindAsync(income.Id,income.IdUser) ?? throw new Exception();
                     incomeData.Description = income.Description;
                     incomeData.IncomeDate = income.IncomeDate;
                     incomeData.Frecuency = income.Frecuency;

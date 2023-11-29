@@ -66,7 +66,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
             {
                 using WizardtrackContext context = new();
                 {
-                    var saveCountData = await context.SaveCounts.FindAsync(saveCount.Id) ?? throw new Exception();
+                    var saveCountData = await context.SaveCounts.FindAsync(saveCount.Id,saveCount.IdUser) ?? throw new Exception();
                     saveCountData.Amount = saveCount.Amount;
                     saveCountData.Name = saveCount.Name;
                     saveCountData.StarDate = saveCount.StarDate;
