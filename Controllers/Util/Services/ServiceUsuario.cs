@@ -4,6 +4,7 @@ using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Exceptions;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.DTO.ServicesHTTP;
 using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Models.DTO;
 
 namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Services
 {
@@ -93,6 +94,18 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Services
             catch (Exception ex) {
                 throw new Exception("Fallo la consulta",ex);
             }
+        }
+        public UserDTO FindById(long id)
+        {
+            try
+            {
+                using WizardtrackContext context = new();
+                {
+					var user =  context.UserWizardtracks.First(x => x.Id == id)??throw new Exception();
+                    return new UserDTO(user.Id, user.Name, user.Email);
+                }
+            }
+            catch(Exception) { return null; };
         }
     }
 }
