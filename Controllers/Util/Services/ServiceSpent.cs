@@ -54,11 +54,12 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
                 using WizardtrackContext context = new();
                 {
                     await context.Spents.AddAsync(spent);
-                }
+					await context.SaveChangesAsync();
+				}
             }
             catch (Exception) { return null; }
-            return spent;
-        }
+			return spent;
+		}
 
         public async Task<Spent> Update(Spent spent)
         {

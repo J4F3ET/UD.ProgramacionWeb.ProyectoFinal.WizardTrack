@@ -14,6 +14,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
                 using WizardtrackContext context = new();
                 {
                     await context.Debts.AddAsync(debt);
+                    await context.SaveChangesAsync();
                 }
             }
             catch (Exception){ 

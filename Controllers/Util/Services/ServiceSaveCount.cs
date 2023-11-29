@@ -54,6 +54,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
                 using WizardtrackContext context = new();
                 {
                     await context.SaveCounts.AddAsync(saveCount);
+                    await context.SaveChangesAsync();
                 }
             }
             catch (Exception) { return null; }
