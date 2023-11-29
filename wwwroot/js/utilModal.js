@@ -19,10 +19,9 @@ function createInputDate(labelFor, inputValue) {
 	input.type = "date";
 	input.id = labelFor;
 	input.classList.add("form-control");
-	input.setAttribute("data-date", inputValue);
 	input.disabled = true;
-
 	if (inputValue != "") {
+		input.setAttribute("data-date", inputValue);
 		let date = new Date(inputValue);
 		let day = date.getDate();
 		let month = date.getMonth() + 1;
@@ -32,16 +31,24 @@ function createInputDate(labelFor, inputValue) {
 			.padStart(2, "0")}`;
 	} else if (labelFor == "formInputStartDate") {
 		let date = new Date();
+		input.setAttribute("data-date", date.valueOf());
 		let day = date.getDate();
 		let month = date.getMonth() + 1;
 		let year = date.getFullYear();
 		input.value = `${year}-${month.toString().padStart(2, "0")}-${day
 			.toString()
 			.padStart(2, "0")}`;
-	} else if (labelFor == "formInputEndDate") {
-		input.value = "";
+	} else {
+		input.disabled = false;
+		let date = new Date();
+		let day = date.getDate();
+		let month = date.getMonth() + 1;
+		let year = date.getFullYear();
+		input.value = `${year}-${month.toString().padStart(2, "0")}-${day
+			.toString()
+			.padStart(2, "0")}`;
+		input.setAttribute("data-date", input.value);
 	}
-
 	divCol.appendChild(label);
 	divCol.appendChild(input);
 
@@ -103,6 +110,7 @@ function createInput(
 	return div;
 }
 function generatorForm(data, type) {
+	var controller = "SaveCountRest";
 	if (data == null) {
 		data = getData(getCookieValue("UserData"));
 	}
@@ -151,6 +159,7 @@ function generatorForm(data, type) {
 	form.appendChild(divAmount);
 	switch (type) {
 		case "debt":
+			controller = `DebtRest`;
 			const divInterest = createInput(
 				"formInputInterest",
 				"Interés",
@@ -167,6 +176,7 @@ function generatorForm(data, type) {
 			form.appendChild(divInstallments);
 			break;
 		case "income":
+			controller = `IncomeRest`;
 			const divFrequency = createInput(
 				"formInputFrequency",
 				"Frecuencia",
@@ -176,6 +186,7 @@ function generatorForm(data, type) {
 			form.appendChild(divFrequency);
 			break;
 		case "spent":
+			controller = `SpentRest`;
 			const divCount = createInput(
 				"formInputCount",
 				"Cantidad",
@@ -186,10 +197,29 @@ function generatorForm(data, type) {
 			break;
 	}
 	form.appendChild(releaseInputDate(data, type));
+	const callBackFetch = (data) => {
+		Swal.fire({
+			position: "top-end",
+			icon: "success",
+			title: "Guardado",
+			showConfirmButton: false,
+			timer: 1500,
+		}).then(() => {
+			window.location.reload();
+		});
+	};
+	var method = "email" in data ? "POST" : "PUT";
 	document.getElementById("btnEnviarModal").setAttribute("data-type", type);
 	document
 		.getElementById("btnEnviarModal")
-		.addEventListener("click", fetchUpdate);
+		.addEventListener("click", () =>
+			fetchAction(
+				callBackFetch,
+				method,
+				controller,
+				generatorDataFetch(form, type)
+			)
+		);
 	modalBody.appendChild(form);
 }
 function generatorDataFetch(form, type) {
@@ -205,7 +235,6 @@ function generatorDataFetch(form, type) {
 		: null;
 	switch (type) {
 		case "debt":
-			controller = `DebtRest`;
 			data.Interest = parseFloat(
 				form.querySelector("#formInputInterest").value
 			);
@@ -222,7 +251,6 @@ function generatorDataFetch(form, type) {
 				.valueOf();
 			break;
 		case "income":
-			controller = `IncomeRest`;
 			data.Frecuency = form.querySelector("#formInputFrequency").value;
 			data.IncomeDate = form
 				.querySelector("#formInputIncomeDate")
@@ -230,7 +258,6 @@ function generatorDataFetch(form, type) {
 				.valueOf();
 			break;
 		case "spent":
-			controller = `SpentRest`;
 			data.Count = form.querySelector("#formInputCount").value;
 			data.SpentDate = form
 				.querySelector("#formInputSpentDate")
@@ -238,7 +265,6 @@ function generatorDataFetch(form, type) {
 				.valueOf();
 			break;
 		case "saveCount":
-			controller = `SaveCountRest`;
 			data.StartDate = form
 				.querySelector("#formInputStartDate")
 				.getAttribute("data-date")
@@ -251,43 +277,9 @@ function generatorDataFetch(form, type) {
 	}
 	return JSON.stringify(data);
 }
-function fetchUpdate() {
-	var controller;
-	const form = document.getElementById("form");
-	const type = document
-		.getElementById("btnEnviarModal")
-		.getAttribute("data-type")
-		.valueOf();
-	const action = (data) => {
-		Swal.fire({
-			position: "top-end",
-			icon: "success",
-			title: "Guardado",
-			showConfirmButton: false,
-			timer: 1500,
-		}).then(() => {
-			window.location.reload();
-		});
-	}; //TODO
-	switch (type) {
-		case "debt":
-			controller = `DebtRest`;
-			break;
-		case "income":
-			controller = `IncomeRest`;
-			break;
-		case "spent":
-			controller = `SpentRest`;
-			break;
-		case "saveCount":
-			controller = `SaveCountRest`;
-			break;
-	}
-	fetchAction(action, "PUT", controller, generatorDataFetch(form, type));
-}
-function fetchAction(callBackThen, action, controller, data) {
+function fetchAction(callBack, method, controller, data) {
+	console.log(data);
 	const url = `http://localhost:7178/api/${controller}`;
-	const method = action;
 	const headers = {
 		"Content-Type": "application/json",
 	};
@@ -308,7 +300,7 @@ function fetchAction(callBackThen, action, controller, data) {
 			}
 		})
 		.then((data) => {
-			callBackThen(data);
+			callBack(data);
 		})
 		.catch((error) => console.log(error));
 }
@@ -341,4 +333,16 @@ function deleteItem(data, type) {
 		});
 	};
 	fetchAction(action, "DELETE", controller, null);
+}
+const dropdownCreateElement = document.getElementById("dropdownCreateElement");
+if (dropdownCreateElement) {
+	dropdownCreateElement
+		.querySelectorAll(".btnCreateElement")
+		.forEach((element) => {
+			element.addEventListener("click", () => {
+				generatorForm(null, element.getAttribute("data-type"));
+			});
+		});
+} else {
+	console.error("Element with ID 'dropdownCreateElement' does not exist");
 }

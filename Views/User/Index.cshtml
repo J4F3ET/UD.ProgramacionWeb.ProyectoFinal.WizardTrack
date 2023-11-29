@@ -2,7 +2,39 @@
     ViewData["Title"] = "Inicio";
     Layout = "_Layout";
 }
-
+<div class="container ps-4">
+	<div class="dropdown">
+		<button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"aria-expanded="false">
+				<span class="ms-2">Agregar</span>
+		</button>
+		<ul id="dropdownCreateElement" class="dropdown-menu">
+			<li>
+				<button data-bs-toggle="modal" data-bs-target="#modal" type="button" data-type="income" class="btnCreateElement dropdown-item" >
+					<img src="~/assets/icons/wallet.svg" alt=""/>
+					<small>Ingreso</small>
+				</button>
+			</li>
+			<li>
+				<button data-bs-toggle="modal" data-bs-target="#modal" type="button" data-type="spent" class="btnCreateElement dropdown-item" >
+					<img src="~/assets/icons/piggy-bank.svg" alt=""/>
+					<small>Gasto  </small>
+				</button>
+			</li>
+			<li>
+				<button data-bs-toggle="modal" data-bs-target="#modal" type="button" data-type="debt" class="btnCreateElement dropdown-item" >
+					<img src="~/assets/icons/bank.svg" alt=""/>
+					<small>Deuda  </small>
+				</button>
+			</li>
+			<li>
+				<button data-bs-toggle="modal" data-bs-target="#modal" type="button" data-type="saveCount" class="btnCreateElement dropdown-item" >
+					<img src="~/assets/icons/cash-coin.svg" alt=""/>
+					<small>Ahorro  </small>
+				</button>
+			</li>
+		</ul>
+	</div>
+</div>
 <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-start justify-content-between">
     <div class="container mt-4">
         <ul  class="list-group" id="listSpent">
