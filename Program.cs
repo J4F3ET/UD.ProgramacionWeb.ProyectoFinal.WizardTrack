@@ -8,9 +8,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         options.Cookie.Name = "CookieToken";
-        options.LoginPath = "/User"; // Ruta de inicio de sesión
+        options.LoginPath = "/Login/Index"; // Ruta de inicio de sesión
         options.ExpireTimeSpan= TimeSpan.FromMinutes(60); // Tiempo de expiración de la cookie
-        options.AccessDeniedPath = "/"; // Ruta de acceso denegado
+        options.AccessDeniedPath = "/Login/Index"; // Ajusta la ruta según sea necesario
         // Otras opciones de configuración de cookies
     });
 ;

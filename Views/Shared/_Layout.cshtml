@@ -47,24 +47,6 @@
 						class="navbar-collapse collapse d-sm-inline-flex justify-content-between"
 					>
 						<ul class="navbar-nav flex-grow-1">
-							<li class="nav-item">
-								<a
-									class="nav-link text-dark"
-									asp-area=""
-									asp-controller="User"
-									asp-action=""
-									>Inicio
-								</a>
-							</li>
-							<li class="nav-item">
-								<a
-									class="nav-link text-dark"
-									asp-area=""
-									asp-controller="Metrics"
-									asp-action=""
-									>Graficas
-								</a>
-							</li>
 							<li class="nav-item d-flex justify-content-center align-content-center">
 								<div class="dropdown">
 									<button
@@ -132,11 +114,30 @@
 										<li
 											class="dropdown-item dropdown-item-danger d-flex gap-2 align-items-center"
 										>
-											<button class="btn btn-danger">Cerrar Sesion</button>
+											<button id="btnSessionClose" class="btn btn-danger">Cerrar Sesion</button>
 										</li>
 									</ul>
 								</div>
 							</li>
+							<li class="nav-item">
+								<a
+									class="nav-link text-dark"
+									asp-area=""
+									asp-controller="User"
+									asp-action=""
+									>Inicio
+								</a>
+							</li>
+							<li class="nav-item">
+								<a
+									class="nav-link text-dark"
+									asp-area=""
+									asp-controller="Metrics"
+									asp-action=""
+									>Graficas
+								</a>
+							</li>
+							
 						</ul>
 					</div>
 				</div>

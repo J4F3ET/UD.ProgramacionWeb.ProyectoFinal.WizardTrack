@@ -48,3 +48,15 @@ function fetchData(callBack) {
 			callBack(json);
 		});
 }
+document.getElementById("btnSessionClose").addEventListener("click", () => {
+	url = "http://localhost:7178/User/SessionClose";
+	fetch(url, {
+		method: "POST",
+		body: {},
+		headers: {
+			"Content-type": "application/json; charset=UTF-8",
+		},
+	}).then((response) => {
+		if (response.status == 200) window.location.href = "http://localhost:7178";
+	});
+});

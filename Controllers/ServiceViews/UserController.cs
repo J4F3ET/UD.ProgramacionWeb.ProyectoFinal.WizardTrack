@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -14,7 +15,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ViewsControll
 		{
             if (!User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "");
+                return RedirectToAction("Index", "Login");
             }
             var name = User.FindFirstValue(ClaimTypes.Name);
             var email = User.FindFirstValue(ClaimTypes.Email);
@@ -34,7 +35,13 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ViewsControll
         {
             return View();
         }
-
+        [HttpPost]
+        public ActionResult SessionClose()
+        {
+            Response.Cookies.Delete("UserData");
+            HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Login");
+        }
         // POST: UserController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

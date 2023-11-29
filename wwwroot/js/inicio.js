@@ -26,7 +26,6 @@ function assetsType(data, type) {
 	return {id, date, assets};
 }
 function generatorItem(data, type) {
-	console.log(data.name);
 	var assets = assetsType(data, type);
 	var item = document.createElement("li");
 	item.classList.add("list-group-item");
@@ -51,7 +50,10 @@ function generatorItem(data, type) {
 	var divInterno1 = document.createElement("div");
 	var h6 = document.createElement("h6");
 	h6.classList.add("mb-0");
-	h6.innerText = (data.name.size > 13)? data.name.substring(0, 10) + "...":data.name.substring(0, 13);
+	h6.innerText =
+		data.name.size > 13
+			? data.name.substring(0, 10) + "..."
+			: data.name.substring(0, 13);
 	var p = document.createElement("p");
 	p.classList.add("mb-0");
 	p.classList.add("opacity-75");
@@ -103,7 +105,6 @@ const generatorListSpent = (data) => {
 	});
 };
 const callBackGeneratorLists = (data) => {
-	console.log(data);
 	generatorListIncome(data.incomes);
 	generatorListDebt(data.debts);
 	generatorListSpent(data.spents);
