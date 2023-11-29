@@ -1,7 +1,15 @@
+function dateFormat(date) {
+	let day = date.getDate().toString().padStart(2, "0");
+	let month = (date.getMonth() + 1).toString().padStart(2, "0");
+	let year = date.getFullYear();
+	return `${year}-${month}-${day}`;
+}
 function createInputDate(labelFor, inputValue) {
 	const divCol = document.createElement("div");
 	divCol.classList.add("col");
 	const label = document.createElement("label");
+	const input = document.createElement("input");
+	input.disabled = true;
 	label.for = labelFor;
 	label.classList.add("form-label");
 	switch (labelFor) {
@@ -9,49 +17,23 @@ function createInputDate(labelFor, inputValue) {
 			label.innerHTML = "Fecha de inicio";
 			break;
 		case "formInputEndDate":
+			input.disabled = false;
 			label.innerHTML = "Fecha de finalización";
 			break;
 		default:
 			label.innerHTML = "Fecha";
 			break;
 	}
-	const input = document.createElement("input");
 	input.type = "date";
 	input.id = labelFor;
 	input.classList.add("form-control");
-	input.disabled = true;
-	if (inputValue != "") {
-		input.setAttribute("data-date", inputValue);
-		let date = new Date(inputValue);
-		let day = date.getDate();
-		let month = date.getMonth() + 1;
-		let year = date.getFullYear();
-		input.value = `${year}-${month.toString().padStart(2, "0")}-${day
-			.toString()
-			.padStart(2, "0")}`;
-	} else if (labelFor == "formInputStartDate") {
-		let date = new Date();
-		input.setAttribute("data-date", date.valueOf());
-		let day = date.getDate();
-		let month = date.getMonth() + 1;
-		let year = date.getFullYear();
-		input.value = `${year}-${month.toString().padStart(2, "0")}-${day
-			.toString()
-			.padStart(2, "0")}`;
-	} else {
-		input.disabled = false;
-		let date = new Date();
-		let day = date.getDate();
-		let month = date.getMonth() + 1;
-		let year = date.getFullYear();
-		input.value = `${year}-${month.toString().padStart(2, "0")}-${day
-			.toString()
-			.padStart(2, "0")}`;
-		input.setAttribute("data-date", input.value);
-	}
+	input.value =
+		inputValue != ""
+			? dateFormat(new Date(inputValue))
+			: dateFormat(new Date());
+	input.setAttribute("data-date", input.value);
 	divCol.appendChild(label);
 	divCol.appendChild(input);
-
 	return divCol;
 }
 function releaseInputDate(data, type) {
@@ -241,14 +223,13 @@ function generatorDataFetch(form, type) {
 			data.Installments = parseInt(
 				form.querySelector("#formInputInstallments").value
 			);
-			data.StartDate = form
+			data.StarDate = form
 				.querySelector("#formInputStartDate")
 				.getAttribute("data-date")
 				.valueOf();
-			data.EndDate = form
-				.querySelector("#formInputEndDate")
-				.getAttribute("data-date")
-				.valueOf();
+			data.EndDate = dateFormat(
+				new Date(form.querySelector("#formInputEndDate").value)
+			);
 			break;
 		case "income":
 			data.Frecuency = form.querySelector("#formInputFrequency").value;
@@ -265,7 +246,7 @@ function generatorDataFetch(form, type) {
 				.valueOf();
 			break;
 		case "saveCount":
-			data.StartDate = form
+			data.StarDate = form
 				.querySelector("#formInputStartDate")
 				.getAttribute("data-date")
 				.valueOf();
@@ -278,7 +259,6 @@ function generatorDataFetch(form, type) {
 	return JSON.stringify(data);
 }
 function fetchAction(callBack, method, controller, data) {
-	console.log(data);
 	const url = `http://localhost:7178/api/${controller}`;
 	const headers = {
 		"Content-Type": "application/json",
