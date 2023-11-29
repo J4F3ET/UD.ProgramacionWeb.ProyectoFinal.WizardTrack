@@ -16,6 +16,35 @@
         <ul  class="list-group" id="listIncome">
         </ul>
     </div>
+    <div class="modal fade"id="modal"tabindex="-1"aria-labelledby="ItemsModal"aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modal-title"></h1>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<div id="modalBody" class="modal-body"></div>
+					<div class="modal-footer">
+						<button
+							type="button"
+							class="btn btn-danger"
+							data-bs-dismiss="modal"
+						>
+							Cerrar
+						</button>
+						<button type="button" class="btn btn-primary">
+							Guardar cambios
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 </div>
 <script src="~/js/metrics/data.js"></script>
+<script src="~/js/utilModal.js"></script>
 <script src="~/js/inicio.js"></script>

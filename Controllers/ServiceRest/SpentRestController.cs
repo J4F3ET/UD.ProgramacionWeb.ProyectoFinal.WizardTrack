@@ -25,10 +25,10 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
         }
 
         // GET api/<SpentRestController>/5
-        [HttpGet("{id}")]
-        public Task<Spent> Get(long id)
+        [HttpGet("{id}/{idUser}")]
+        public Task<Spent> Get(long id,long idUser)
         {
-            return serviceSpent.FindById(id);
+            return serviceSpent.FindById(id, idUser);
         }
         // PUT api/<SpentRestController>/5
         [HttpPut]
@@ -38,10 +38,10 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
         }
 
         // DELETE api/<SpentRestController>/5
-        [HttpDelete("{id}")]
-        public Task<Spent> Delete(int id)
+        [HttpDelete("{id}/{idUser}")]
+        public Task<Spent> Delete(long id, long idUser)
         {
-            return serviceSpent.DeleteById(id);
+            return serviceSpent.DeleteById(id,idUser);
         }
     }
 }

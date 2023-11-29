@@ -45,6 +45,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ViewsControll
         // POST: UserController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public ActionResult Create(IFormCollection collection)
         {
             try

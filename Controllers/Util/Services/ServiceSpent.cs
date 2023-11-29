@@ -7,13 +7,13 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
 {
     public class ServiceSpent : ISpend
     {
-        public async Task<Spent> DeleteById(long id)
+        public async Task<Spent> DeleteById(long id, long userId)
         {
             try
             {
                 using WizardtrackContext context = new();
                 {
-                    var SaveCount = await context.Spents.FindAsync(id) ?? throw new Exception();
+                    var SaveCount = await context.Spents.FindAsync(id, userId) ?? throw new Exception();
                     context.Spents.Remove(SaveCount);
                     context.SaveChanges();
                     return SaveCount;
@@ -23,13 +23,13 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
             catch (Exception) { return null; }
         }
 
-        public async Task<Spent> FindById(long id)
+        public async Task<Spent> FindById(long id, long userId)
         {
             try
             {
                 using WizardtrackContext context = new();
                 {
-                    return await context.Spents.FindAsync(id);
+                    return await context.Spents.FindAsync(id,userId);
                 }
             }
             catch (Exception) { return null; }

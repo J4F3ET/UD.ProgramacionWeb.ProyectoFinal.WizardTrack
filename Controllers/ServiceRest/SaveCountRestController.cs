@@ -25,10 +25,10 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
         }
 
         // GET api/<SaveCountRestController>/5
-        [HttpGet("{id}")]
-        public Task<SaveCount> Get(long id)
+        [HttpGet("{id}/{idUser}")]
+        public Task<SaveCount> Get(long id,long idUser)
         {
-            return serviceSaveCount.FindById(id);
+            return serviceSaveCount.FindById(id, idUser);
         }
         // PUT api/<SaveCountRestController>/5
         [HttpPut]
@@ -38,10 +38,10 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
         }
 
         // DELETE api/<SaveCountRestController>/5
-        [HttpDelete("{id}")]
-        public Task<SaveCount> Delete(long id)
+        [HttpDelete("{id}/{idUser}")]
+        public Task<SaveCount> Delete(long id,long idUser)
         {
-            return serviceSaveCount.DeleteById(id);
+            return serviceSaveCount.DeleteById(id, idUser);
         }
     }
 }

@@ -41,13 +41,13 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
             return debt;
         }
 
-        public async Task<Debt>? DeleteById(long id)
+        public async Task<Debt>? DeleteById(long id, long userId)
         {
             try
             { 
                 using WizardtrackContext context = new();
                 {
-                    var existDebt = await context.Debts.FindAsync(id) ?? throw new Exception();
+                    var existDebt = await context.Debts.FindAsync(id,userId) ?? throw new Exception();
                     context.Debts.Remove(existDebt);
                     context.SaveChanges();
                     return existDebt;
@@ -56,13 +56,13 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
             
         }
 
-        public async Task<Debt>? FindById(long id)
+        public async Task<Debt>? FindById(long id, long userId)
         {
             try
             {
                 using WizardtrackContext context = new();
                 {
-                    return await context.Debts.FindAsync(id) ?? throw new Exception();
+                    return await context.Debts.FindAsync(id, userId) ?? throw new Exception();
                 }
             }
             catch (Exception) { return null; }

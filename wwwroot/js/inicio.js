@@ -1,6 +1,3 @@
-document.getElementById("listIncome");
-document.getElementById("listDebt");
-document.getElementById("listSpent");
 function assetsType(data, type) {
 	var date;
 	var assets;
@@ -28,6 +25,11 @@ function assetsType(data, type) {
 function generatorItem(data, type) {
 	var assets = assetsType(data, type);
 	var item = document.createElement("li");
+	item.type = "button";
+	item.setAttribute("data-bs-toggle", "modal");
+	item.setAttribute("data-bs-target", "#modal");
+	item.classList.add("btnModal");
+	item.classList.add("openModal");
 	item.classList.add("list-group-item");
 	item.classList.add("list-group-item-action");
 	item.classList.add("d-flex");
@@ -84,6 +86,9 @@ function generatorItem(data, type) {
 	divExterno.appendChild(divInterno2);
 	item.appendChild(image);
 	item.appendChild(divExterno);
+	item.addEventListener("click", () => {
+		generatorForm(data, type);
+	});
 	return item;
 }
 const generatorListIncome = (data) => {
