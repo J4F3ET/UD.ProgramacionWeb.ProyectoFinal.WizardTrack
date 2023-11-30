@@ -4,10 +4,13 @@
 }
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="container w-100">
+    <div class="d-flex justify-content-end " >
+            <button id="btnPrintReportPDF" class="btn btn-outline-success">
+                imprimir informe PDF
+            </button>
+        </div>
     <div class="row">
-        <canvas id="statisticIncome"></canvas>
-    </div>
-    <div class="row">
+        <div id="reportDiv" class="col-md-6"></div>
         <div class="col-md-6">
             <div class="row">
                 <canvas id="statisticSpent"></canvas>
@@ -18,10 +21,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-
-        </div>
+    </div>
+    <div class="row">
+        <canvas height="400" id="statisticIncome"></canvas>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="~/js/metrics/data.js"></script>
 <script src="~/js/metrics/grafics.js"></script>

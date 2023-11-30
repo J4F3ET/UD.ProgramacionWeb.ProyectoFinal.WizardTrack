@@ -72,6 +72,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
                     spentData.Name = spent.Name;
                     spentData.SpentDate = spent.SpentDate;
                     spentData.Description = spent.Description;
+                    spentData.Count = spent.Count;
                     await context.SaveChangesAsync();
                     return spentData;
                 }

@@ -38,15 +38,15 @@ function dataSpent(data) {
 function dataIncomeDebtSpent(data) {
 	const currentMonth = new Date().getMonth();
 	const spent = data.spents.filter((spent) => {
-		return new Date(spent.spentDate).getMonth() + 1 === currentMonth;
+		return new Date(spent.spentDate).getMonth() === currentMonth;
 	});
 
 	const income = data.incomes.filter((income) => {
-		return new Date(income.incomeDate).getMonth() + 1 === currentMonth;
+		return new Date(income.incomeDate).getMonth() === currentMonth;
 	});
 
 	const debt = data.debts.filter((debt) => {
-		return new Date(debt.starDate).getMonth() + 1 === currentMonth;
+		return new Date(debt.starDate).getMonth() === currentMonth;
 	});
 
 	const sumIncome = income.reduce(
@@ -111,7 +111,7 @@ const statisticIncomeDebt = (dataRest) => {
 			},
 		},
 	};
-	new Chart(canvas, config);
+	return new Chart(canvas, config);
 };
 const statisticSpent = (dataRest) => {
 	const dataResponse = dataSpent(dataRest);
@@ -150,8 +150,9 @@ const statisticSpent = (dataRest) => {
 			},
 		},
 	};
-	new Chart(canvas, config);
+	return new Chart(canvas, config);
 };
+
 const statisticIncomeDebtSpent = (dataRest) => {
 	const mesString = [
 		"Enero",
@@ -221,11 +222,153 @@ const statisticIncomeDebtSpent = (dataRest) => {
 			},
 		},
 	};
-	new Chart(canvas, config);
+	return new Chart(canvas, config);
+};
+function releaseTypeDataItem(data) {
+	if ("spentDate" in data) {
+		return data.spentDate;
+	} else if ("incomeDate" in data) {
+		return data.incomeDate;
+	} else {
+		return data.starDate;
+	}
+}
+function releaseDataToReport(data, currentMonth) {
+	var sumItem = 0;
+	data.forEach((item) => {
+		itemDate = new Date(releaseTypeDataItem(item));
+		if (itemDate.getMonth() === currentMonth) {
+			sumItem += item.amount;
+		}
+	});
+	return sumItem;
+}
+function generatorReportInPage(dataRest) {
+	const currentMonth = new Date().getMonth();
+	const mesString = [
+		"Enero",
+		"Febrero",
+		"Marzo",
+		"Abril",
+		"Mayo",
+		"Junio",
+		"Julio",
+		"Agosto",
+		"Septiembre",
+		"Octubre",
+		"Noviembre",
+		"Diciembre",
+	];
+	// Crear el contenedor
+	const divContainer = document.createElement("div");
+	divContainer.classList.add("container");
+	// Crear el titulo
+	const divRowTitle = document.createElement("div");
+	divRowTitle.classList.add("row");
+	const pTitle = document.createElement("p");
+	pTitle.classList.add("display-6");
+	pTitle.classList.add("text-center");
+	pTitle.id = "reportTitle";
+	pTitle.innerText = `Informe de ${mesString[currentMonth]}`;
+	divRowTitle.appendChild(pTitle);
+	divContainer.appendChild(divRowTitle);
+	// Crear los inputs
+	const divRowSpent = generatorDivReport(
+		"reportSpentByMonth",
+		"Gastos:",
+		releaseDataToReport(dataRest.spents, currentMonth)
+	);
+	divContainer.appendChild(divRowSpent);
+	const divRowIncome = generatorDivReport(
+		"reportIcomesByMonth",
+		"Ingresos:",
+		releaseDataToReport(dataRest.incomes, currentMonth)
+	);
+	divContainer.appendChild(divRowIncome);
+	const divRowDebt = generatorDivReport(
+		"reportDebtByMonth",
+		"Deuda:",
+		releaseDataToReport(dataRest.debts, currentMonth)
+	);
+	divContainer.appendChild(divRowDebt);
+	const divRowSaveCount = generatorDivReport(
+		"reportSaveCountByMonth",
+		"Ahorro:",
+		releaseDataToReport(dataRest.saveCounts, currentMonth)
+	);
+	divContainer.appendChild(divRowSaveCount);
+	// Agregar el contenedor al body
+	const divReport = document.getElementById("reportDiv");
+	divReport.appendChild(divContainer);
+	return divReport;
+}
+
+function generatorDivReport(inputId, inputLabel, inputValue) {
+	const divRow = document.createElement("div");
+	divRow.classList.add("row", "g-3", "align-items-center");
+	// Crear el label
+	const divColLabel = generatorLabel(inputLabel, inputId, "label");
+	divRow.appendChild(divColLabel);
+	// Crear el input
+	const divColInput = generatorLabel(inputValue, inputId, "input");
+	divRow.appendChild(divColInput);
+	return divRow;
+}
+function generatorLabel(labelText, labelFor, typeLabel) {
+	const divColLabel = document.createElement("div");
+	divColLabel.classList.add("col-auto");
+	const label = document.createElement(typeLabel);
+	if (typeLabel === "label") {
+		label.classList.add("col-form-label");
+		label.innerText = labelText;
+		label.for = labelFor;
+	} else {
+		label.classList.add("form-control-plaintext");
+		label.id = labelFor;
+		label.value = labelText;
+		label.id = labelFor;
+		label.type = "text";
+		label.readOnly = true;
+	}
+	divColLabel.appendChild(label);
+	return divColLabel;
+}
+
+const generatorReportPdf = (canvasReport, canvas) => {
+	const {jsPDF} = window.jspdf;
+	const pdf = new jsPDF();
+	pdf.addImage(
+		canvasReport.toDataURL("image/png"),
+		"PNG",
+		10,
+		10,
+		canvas.width,
+		canvas.height
+	);
+	canvas.forEach((item) => {
+		pdf.addImage(
+			item.toDataURL("image/png"),
+			"PNG",
+			10,
+			10,
+			canvas.width,
+			canvas.height
+		);
+	});
+	pdf.save("report.pdf");
 };
 const statisticAllCallBacks = (data) => {
-	statisticIncomeDebt(data);
-	statisticSpent(data);
-	statisticIncomeDebtSpent(data);
+	const canvasIncomeDebt = statisticIncomeDebt(data);
+	const canvasSpent = statisticSpent(data);
+	const canvasIncomeDebtSpent = statisticIncomeDebtSpent(data);
+	const report = generatorReportInPage(data);
+	const canvas = {
+		1: canvasIncomeDebt.canvas.toDataURL("image/png"),
+		2: canvasSpent.canvas.toDataURL("image/png"),
+		3: canvasIncomeDebtSpent.canvas.toDataURL("image/png"),
+	};
+	document.getElementById("btnPrintReportPDF").addEventListener("click", () => {
+		generatorReportPdf(report, canvas);
+	});
 };
 fetchData(statisticAllCallBacks);

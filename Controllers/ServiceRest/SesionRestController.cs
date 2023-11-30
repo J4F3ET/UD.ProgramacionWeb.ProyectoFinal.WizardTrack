@@ -63,7 +63,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.RestControlle
                     throw new ArgumentNullException("Value es null");
 
                 UserWizardtrack userWizardtrack = await service.FindByEmail(value.email)
-                    ?? throw new ArgumentNullException("Usuario no existe");
+                    ?? throw new Exception("Usuario no existe");
 
                 if (!seguridad.VerifyPassword(userWizardtrack.Password, userWizardtrack.Salt, value.password))
                     throw new Exception("Contraseña incorrecta");
