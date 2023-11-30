@@ -24,10 +24,10 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
             return serviceIncome.GetAll(user);
         }
         // GET api/<IncomeRestController>/5
-        [HttpGet("{id}")]
-        public Task<Income> Get(long id)
+        [HttpGet("{id}/{idUser}")]
+        public Task<Income> Get(long id,long idUser)
         {
-            return serviceIncome.FindById(id);
+            return serviceIncome.FindById(id, idUser);
         }
         // PUT api/<IncomeRestController>/5
         [HttpPut]
@@ -37,10 +37,10 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
         }
 
         // DELETE api/<IncomeRestController>/5
-        [HttpDelete("{id}")]
-        public Task<Income> Delete(long id)
+        [HttpDelete("{id}/{idUser}")]
+        public Task<Income> Delete(long id,long idUser)
         {
-            return serviceIncome.DeleteById(id);
+            return serviceIncome.DeleteById(id, idUser);
         }
     }
 }

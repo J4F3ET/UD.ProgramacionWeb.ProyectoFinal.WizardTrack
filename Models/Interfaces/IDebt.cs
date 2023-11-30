@@ -7,8 +7,8 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Interfac
     {
         Task <Debt>? Save(Debt debt);
         Task <Debt>? Update(Debt debt);
-        Task <Debt>? DeleteById(long id);
-        Task <Debt>? FindById(long id);
+        Task <Debt>? DeleteById(long id, long userId);
+        Task <Debt>? FindById(long id, long userId);
         Task <IEnumerable<Debt>>? GetAll(UserDTO user);
     }
 }

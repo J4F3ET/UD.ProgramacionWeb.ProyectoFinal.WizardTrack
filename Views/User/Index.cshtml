@@ -2,7 +2,39 @@
     ViewData["Title"] = "Inicio";
     Layout = "_Layout";
 }
-
+<div class="container ps-4">
+	<div class="dropdown">
+		<button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"aria-expanded="false">
+				<span class="ms-2">Agregar</span>
+		</button>
+		<ul id="dropdownCreateElement" class="dropdown-menu">
+			<li>
+				<button data-bs-toggle="modal" data-bs-target="#modal" type="button" data-type="income" class="btnCreateElement dropdown-item" >
+					<img src="~/assets/icons/wallet.svg" alt=""/>
+					<small>Ingreso</small>
+				</button>
+			</li>
+			<li>
+				<button data-bs-toggle="modal" data-bs-target="#modal" type="button" data-type="spent" class="btnCreateElement dropdown-item" >
+					<img src="~/assets/icons/piggy-bank.svg" alt=""/>
+					<small>Gasto  </small>
+				</button>
+			</li>
+			<li>
+				<button data-bs-toggle="modal" data-bs-target="#modal" type="button" data-type="debt" class="btnCreateElement dropdown-item" >
+					<img src="~/assets/icons/bank.svg" alt=""/>
+					<small>Deuda  </small>
+				</button>
+			</li>
+			<li>
+				<button data-bs-toggle="modal" data-bs-target="#modal" type="button" data-type="saveCount" class="btnCreateElement dropdown-item" >
+					<img src="~/assets/icons/cash-coin.svg" alt=""/>
+					<small>Ahorro  </small>
+				</button>
+			</li>
+		</ul>
+	</div>
+</div>
 <div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-start justify-content-between">
     <div class="container mt-4">
         <ul  class="list-group" id="listSpent">
@@ -16,6 +48,37 @@
         <ul  class="list-group" id="listIncome">
         </ul>
     </div>
+    <div class="modal fade"id="modal"tabindex="-1"aria-labelledby="ItemsModal"aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modal-title"></h1>
+						<button
+							type="button"
+							class="btn-close"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+						></button>
+					</div>
+					<div id="modalBody" class="modal-body"></div>
+					<div class="modal-footer">
+						<button
+							id="btnCloseModal"
+							type="button"
+							class="btn btn-danger"
+							data-bs-dismiss="modal"
+						>
+							Cerrar
+						</button>
+						<button id="btnEnviarModal" type="button" class="btn btn-primary">
+							Guardar cambios
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="~/js/metrics/data.js"></script>
+<script src="~/js/utilModal.js"></script>
 <script src="~/js/inicio.js"></script>

@@ -18,9 +18,19 @@ document.getElementById("sign_up_registrar").addEventListener("click", () => {
 			email: email,
 		}),
 	};
-	fetch(url, requestOption).then(
-		(response) => (location.href = "http://localhost:7178")
-	);
+	fetch(url, requestOption)
+		.then((response) => {
+			return response.json();
+		})
+		.then((data) => {
+			Swal.fire({
+				title: data.email == "" ? "Error" : "Bienvenido",
+				text: data.name,
+				icon: data.email == "" ? "error" : "success",
+			}).then(() => {
+				location.href = "http://localhost:7178";
+			});
+		});
 });
 document.getElementById("log_in_iniciar").addEventListener("click", () => {
 	const url = "http://localhost:7178/Account/SesionRest/login";
@@ -40,8 +50,17 @@ document.getElementById("log_in_iniciar").addEventListener("click", () => {
 			password: password,
 		}),
 	};
-
-	fetch(url, requestOption).then(
-		(response) => (location.href = "http://localhost:7178")
-	);
+	fetch(url, requestOption)
+		.then((response) => {
+			return response.json();
+		})
+		.then((data) => {
+			Swal.fire({
+				title: data.email == "" ? "Error" : "Bienvenido",
+				text: data.name,
+				icon: data.email == "" ? "error" : "success",
+			}).then(() => {
+				location.href = "http://localhost:7178";
+			});
+		});
 });

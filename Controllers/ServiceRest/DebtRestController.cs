@@ -24,10 +24,10 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
             return serviceDebt.Save(debt);
         }
         // GET api/<DebtRestController>/5
-        [HttpGet("{id}")]
-        public Task<Debt> Get(long id)
+        [HttpGet("{id}/{idUser}")]
+        public Task<Debt> Get(long id,long idUser)
         {
-            return serviceDebt.FindById(id);
+            return serviceDebt.FindById(id, idUser);
         }
         // PUT api/<DebtRestController>/5
         [HttpPut]
@@ -37,10 +37,10 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.ServiceRest
         }
 
         // DELETE api/<DebtRestController>/5
-        [HttpDelete("{id}")]
-        public Task<Debt> Delete(long id)
+        [HttpDelete("{id}/{idUser}")]
+        public Task<Debt> Delete(long id, long idUser)
         {
-            return serviceDebt.DeleteById(id);
+            return serviceDebt.DeleteById(id, idUser);
         }
     }
 }

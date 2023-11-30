@@ -1,6 +1,3 @@
-document.getElementById("listIncome");
-document.getElementById("listDebt");
-document.getElementById("listSpent");
 function assetsType(data, type) {
 	var date;
 	var assets;
@@ -46,44 +43,49 @@ function generatorItem(data, type) {
 	divExterno.classList.add("gap-2");
 	divExterno.classList.add("w-100");
 	divExterno.classList.add("justify-content-between");
+	divExterno.type = "button";
+	divExterno.setAttribute("data-bs-toggle", "modal");
+	divExterno.setAttribute("data-bs-target", "#modal");
+	divExterno.classList.add("btnModal");
+	divExterno.classList.add("openModal");
 	//Div interno 1
 	var divInterno1 = document.createElement("div");
 	var h6 = document.createElement("h6");
 	h6.classList.add("mb-0");
-	h6.innerText =
-		data.name.size > 13
-			? data.name.substring(0, 10) + "..."
-			: data.name.substring(0, 13);
+	h6.innerText = data.name;
 	var p = document.createElement("p");
 	p.classList.add("mb-0");
 	p.classList.add("opacity-75");
-	p.innerText = data.description.substring(0, 5) + "...";
+	p.innerText = data.description;
 	divInterno1.appendChild(h6);
 	divInterno1.appendChild(p);
-	// Div interno 2
-	var divInterno2 = document.createElement("div");
+	// Div externo 2
+	var divExterno2 = document.createElement("div");
 	var small = document.createElement("small");
 	small.classList.add("opacity-50");
 	small.classList.add("text-nowrap");
 	small.classList.add("me-3");
 	small.innerText = assets.date;
-	var input = document.createElement("input");
+	var input = document.createElement("button");
 	input.id = assets.id;
-	input.type = "checkbox";
-	input.classList.add("btn-check");
-	var label = document.createElement("label");
-	label.classList.add("btn");
-	label.classList.add("btn-outline-success");
-	label.for = input.id;
-	label.innerText = "Finalizar";
+	input.type = "button";
+	input.classList.add("btn");
+	input.classList.add("btn-outline-danger");
+	input.classList.add("btn-sm");
+	input.textContent = "Finalizar";
+	input.addEventListener("click", () => {
+		deleteItem(data, type);
+	});
 	// Agregar elementos
-	divInterno2.appendChild(small);
-	divInterno2.appendChild(input);
-	divInterno2.appendChild(label);
+	divInterno1.appendChild(small);
+	divExterno2.appendChild(input);
 	divExterno.appendChild(divInterno1);
-	divExterno.appendChild(divInterno2);
 	item.appendChild(image);
 	item.appendChild(divExterno);
+	item.appendChild(divExterno2);
+	item.addEventListener("click", (event) => {
+		generatorForm(data, type);
+	});
 	return item;
 }
 const generatorListIncome = (data) => {

@@ -38,15 +38,15 @@ function dataSpent(data) {
 function dataIncomeDebtSpent(data) {
 	const currentMonth = new Date().getMonth();
 	const spent = data.spents.filter((spent) => {
-		return new Date(spent.spentDate).getMonth() + 1 === currentMonth;
+		return new Date(spent.spentDate).getMonth() === currentMonth;
 	});
 
 	const income = data.incomes.filter((income) => {
-		return new Date(income.incomeDate).getMonth() + 1 === currentMonth;
+		return new Date(income.incomeDate).getMonth() === currentMonth;
 	});
 
 	const debt = data.debts.filter((debt) => {
-		return new Date(debt.starDate).getMonth() + 1 === currentMonth;
+		return new Date(debt.starDate).getMonth() === currentMonth;
 	});
 
 	const sumIncome = income.reduce(
@@ -111,7 +111,7 @@ const statisticIncomeDebt = (dataRest) => {
 			},
 		},
 	};
-	new Chart(canvas, config);
+	return new Chart(canvas, config);
 };
 const statisticSpent = (dataRest) => {
 	const dataResponse = dataSpent(dataRest);
@@ -150,8 +150,9 @@ const statisticSpent = (dataRest) => {
 			},
 		},
 	};
-	new Chart(canvas, config);
+	return new Chart(canvas, config);
 };
+
 const statisticIncomeDebtSpent = (dataRest) => {
 	const mesString = [
 		"Enero",
@@ -221,11 +222,160 @@ const statisticIncomeDebtSpent = (dataRest) => {
 			},
 		},
 	};
-	new Chart(canvas, config);
+	return new Chart(canvas, config);
 };
+function releaseTypeDataItem(data) {
+	if ("spentDate" in data) {
+		return data.spentDate;
+	} else if ("incomeDate" in data) {
+		return data.incomeDate;
+	} else {
+		return data.starDate;
+	}
+}
+function releaseDataToReport(data, currentMonth) {
+	var sumItem = 0;
+	data.forEach((item) => {
+		itemDate = new Date(releaseTypeDataItem(item));
+		if (itemDate.getMonth() === currentMonth) {
+			sumItem += item.amount;
+		}
+	});
+	return sumItem;
+}
+function generatorReportInPage(dataRest) {
+	const currentMonth = new Date().getMonth();
+	const mesString = [
+		"Enero",
+		"Febrero",
+		"Marzo",
+		"Abril",
+		"Mayo",
+		"Junio",
+		"Julio",
+		"Agosto",
+		"Septiembre",
+		"Octubre",
+		"Noviembre",
+		"Diciembre",
+	];
+	// Crear el contenedor
+	const divContainer = document.createElement("div");
+	divContainer.classList.add("container");
+	// Crear el titulo
+	const divRowTitle = document.createElement("div");
+	divRowTitle.classList.add("row");
+	const pTitle = document.createElement("p");
+	pTitle.classList.add("display-6");
+	pTitle.classList.add("text-center");
+	pTitle.id = "reportTitle";
+	pTitle.innerText = `Informe de ${mesString[currentMonth]}`;
+	divRowTitle.appendChild(pTitle);
+	divContainer.appendChild(divRowTitle);
+	// Crear los inputs
+	const divRowSpent = generatorDivReport(
+		"reportSpentByMonth",
+		"Gastos:",
+		releaseDataToReport(dataRest.spents, currentMonth)
+	);
+	divContainer.appendChild(divRowSpent);
+	const divRowIncome = generatorDivReport(
+		"reportIcomesByMonth",
+		"Ingresos:",
+		releaseDataToReport(dataRest.incomes, currentMonth)
+	);
+	divContainer.appendChild(divRowIncome);
+	const divRowDebt = generatorDivReport(
+		"reportDebtByMonth",
+		"Deuda:",
+		releaseDataToReport(dataRest.debts, currentMonth)
+	);
+	divContainer.appendChild(divRowDebt);
+	const divRowSaveCount = generatorDivReport(
+		"reportSaveCountByMonth",
+		"Ahorro:",
+		releaseDataToReport(dataRest.saveCounts, currentMonth)
+	);
+	divContainer.appendChild(divRowSaveCount);
+	// Agregar el contenedor al body
+	const divReport = document.getElementById("reportDiv");
+	divReport.appendChild(divContainer);
+	return divReport;
+}
+
+function generatorDivReport(inputId, inputLabel, inputValue) {
+	const divRow = document.createElement("div");
+	divRow.classList.add("row", "g-3", "align-items-center");
+	// Crear el label
+	const divColLabel = generatorLabel(inputLabel, inputId, "label");
+	divRow.appendChild(divColLabel);
+	// Crear el input
+	const divColInput = generatorLabel(inputValue, inputId, "input");
+	divRow.appendChild(divColInput);
+	return divRow;
+}
+function generatorLabel(labelText, labelFor, typeLabel) {
+	const divColLabel = document.createElement("div");
+	divColLabel.classList.add("col-auto");
+	const label = document.createElement(typeLabel);
+	if (typeLabel === "label") {
+		label.classList.add("col-form-label");
+		label.innerText = labelText;
+		label.for = labelFor;
+	} else {
+		label.classList.add("form-control-plaintext");
+		label.id = labelFor;
+		label.value = labelText;
+		label.id = labelFor;
+		label.type = "text";
+		label.readOnly = true;
+	}
+	divColLabel.appendChild(label);
+	return divColLabel;
+}
+
+const generatorReportPdf = (canvasReport, canvas) => {
+	const {jsPDF} = window.jspdf;
+	const pdf = new jsPDF();
+	console.log(canvasReport);
+	pdf.addImage(canvasReport, "PNG", 10, 10, canvas.width, canvas.height);
+	canvas.forEach((item) => {
+		pdf.addImage(item, "PNG", 10, 10, canvas.width, canvas.height);
+	});
+	pdf.save("report.pdf");
+};
+function divToDataURL(div) {
+	return new Promise((resolve, reject) => {
+		var codDivReport = div.outerHTML;
+		var canvas = document.createElement("canvas");
+		canvas.width = div.clientWidth;
+		canvas.height = div.clientHeight;
+		var contexto = canvas.getContext("2d");
+		var imagen = new Image();
+		imagen.src = "data:image/svg+xml," + encodeURIComponent(codDivReport);
+
+		imagen.onload = function () {
+			contexto.drawImage(imagen, 0, 0);
+			const dataURL = canvas.toDataURL("image/png");
+			resolve(dataURL);
+		};
+		imagen.onerror = function () {
+			reject(new Error("Error loading image"));
+		};
+	});
+}
+
 const statisticAllCallBacks = (data) => {
 	statisticIncomeDebt(data);
 	statisticSpent(data);
 	statisticIncomeDebtSpent(data);
+	generatorReportInPage(data);
+	document.getElementById("btnPrintReportPDF").addEventListener("click", () => {
+		document.getElementById("btnPrintReportPDF").style.display = "none";
+		document.querySelector("header").style.display = "none";
+		window.print();
+		document.getElementById("btnPrintReportPDF").style.display = "block";
+		document.querySelector("header").style.display = "block";
+	});
 };
 fetchData(statisticAllCallBacks);

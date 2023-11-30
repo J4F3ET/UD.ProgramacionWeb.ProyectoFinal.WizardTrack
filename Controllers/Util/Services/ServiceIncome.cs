@@ -8,31 +8,31 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
 {
     public class ServiceIncome : IIncome
     {
-        public async Task<Income> DeleteById(long id)
+        public async Task<Income> DeleteById(long id, long userId)
         {
             try
             {
                 using WizardtrackContext context = new();
                 {
-                    var ExistIcome = await context.Incomes.FindAsync(id)??throw new Exception();
+                    var ExistIcome = await context.Incomes.FindAsync(id, userId)??throw new Exception();
                     context.Incomes.Remove(ExistIcome);
                     context.SaveChanges();
                     return ExistIcome;
 
                 }
-            }catch (Exception ex) { return null; }
+            }catch (Exception) { return null; }
         }
 
-        public async Task<Income> FindById(long id)
+        public async Task<Income> FindById(long id,long userId)
         {
             try
             {
                 using WizardtrackContext context = new();
                 {
-                    return await context.Incomes.FindAsync(id);
+                    return await context.Incomes.FindAsync(id, userId);
                 }
             }
-            catch (Exception ex) { return null; }
+            catch (Exception) { return null; }
         }
 
         public async Task<IEnumerable<Income>> GetAll(UserDTO user)
@@ -44,7 +44,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
                     return await context.Incomes.Where(x => x.IdUser == user.Id).ToListAsync();
                 }
             }
-            catch (Exception ex) { return null; }
+            catch (Exception) { return null; }
         }
 
         public async Task<Income> Save(Income income)
@@ -54,9 +54,10 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
                 using WizardtrackContext context = new();
                 {
                     await context.Incomes.AddAsync(income);
+                    await context.SaveChangesAsync();
                 }
             }
-            catch (Exception ex) { return null; }
+            catch (Exception) { return null; }
             return income;
         }
 
@@ -66,7 +67,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
             {
                 using WizardtrackContext context = new();
                 {
-                    var  incomeData= await context.Incomes.FindAsync(income.Id) ?? throw new Exception();
+                    var  incomeData= await context.Incomes.FindAsync(income.Id,income.IdUser) ?? throw new Exception();
                     incomeData.Description = income.Description;
                     incomeData.IncomeDate = income.IncomeDate;
                     incomeData.Frecuency = income.Frecuency;
@@ -76,7 +77,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
                     return incomeData;
                 }
             }
-            catch (Exception ex) { return null; }
+            catch (Exception) { return null; }
         }
     }
 }

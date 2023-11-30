@@ -7,8 +7,8 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Interfac
     {
         Task <Income> Save(Income income);
         Task <Income> Update(Income income);
-        Task <Income> DeleteById(long id);
-        Task <Income> FindById(long id);
+        Task <Income> DeleteById(long id, long userId);
+        Task <Income> FindById(long id, long userId);
         Task <IEnumerable<Income>> GetAll(UserDTO user);
     }
 }

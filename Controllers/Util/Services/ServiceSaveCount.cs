@@ -7,13 +7,13 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
 {
     public class ServiceSaveCount : ISaveCount
     {
-        public async Task<SaveCount> DeleteById(long id)
+        public async Task<SaveCount> DeleteById(long id, long userId)
         {
             try
             {
                 using WizardtrackContext context = new();
                 {
-                    var SaveCount = await context.SaveCounts.FindAsync(id) ?? throw new Exception();
+                    var SaveCount = await context.SaveCounts.FindAsync(id, userId) ?? throw new Exception();
                     context.SaveCounts.Remove(SaveCount);
                     context.SaveChanges();
                     return SaveCount;
@@ -23,13 +23,13 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
             catch (Exception) { return null; }
         }
 
-        public async Task<SaveCount> FindById(long id)
+        public async Task<SaveCount> FindById(long id, long userId)
         {
             try
             {
                 using WizardtrackContext context = new();
                 {
-                    return await context.SaveCounts.FindAsync(id);
+                    return await context.SaveCounts.FindAsync(id, userId);
                 }
             }
             catch (Exception) { return null; }
@@ -54,6 +54,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
                 using WizardtrackContext context = new();
                 {
                     await context.SaveCounts.AddAsync(saveCount);
+                    await context.SaveChangesAsync();
                 }
             }
             catch (Exception) { return null; }
@@ -66,7 +67,7 @@ namespace UD.ProgramacionWeb.ProyectoFinal.WizardTrack.Controllers.Util.Services
             {
                 using WizardtrackContext context = new();
                 {
-                    var saveCountData = await context.SaveCounts.FindAsync(saveCount.Id) ?? throw new Exception();
+                    var saveCountData = await context.SaveCounts.FindAsync(saveCount.Id,saveCount.IdUser) ?? throw new Exception();
                     saveCountData.Amount = saveCount.Amount;
                     saveCountData.Name = saveCount.Name;
                     saveCountData.StarDate = saveCount.StarDate;
