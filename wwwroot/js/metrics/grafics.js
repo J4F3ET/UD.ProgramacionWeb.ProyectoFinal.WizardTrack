@@ -337,38 +337,45 @@ function generatorLabel(labelText, labelFor, typeLabel) {
 const generatorReportPdf = (canvasReport, canvas) => {
 	const {jsPDF} = window.jspdf;
 	const pdf = new jsPDF();
-	pdf.addImage(
-		canvasReport.toDataURL("image/png"),
-		"PNG",
-		10,
-		10,
-		canvas.width,
-		canvas.height
-	);
+	console.log(canvasReport);
+	pdf.addImage(canvasReport, "PNG", 10, 10, canvas.width, canvas.height);
 	canvas.forEach((item) => {
-		pdf.addImage(
-			item.toDataURL("image/png"),
-			"PNG",
-			10,
-			10,
-			canvas.width,
-			canvas.height
-		);
+		pdf.addImage(item, "PNG", 10, 10, canvas.width, canvas.height);
 	});
 	pdf.save("report.pdf");
 };
+function divToDataURL(div) {
+	return new Promise((resolve, reject) => {
+		var codDivReport = div.outerHTML;
+		var canvas = document.createElement("canvas");
+		canvas.width = div.clientWidth;
+		canvas.height = div.clientHeight;
+		var contexto = canvas.getContext("2d");
+		var imagen = new Image();
+		imagen.src = "data:image/svg+xml," + encodeURIComponent(codDivReport);
+
+		imagen.onload = function () {
+			contexto.drawImage(imagen, 0, 0);
+			const dataURL = canvas.toDataURL("image/png");
+			resolve(dataURL);
+		};
+		imagen.onerror = function () {
+			reject(new Error("Error loading image"));
+		};
+	});
+}
+
 const statisticAllCallBacks = (data) => {
-	const canvasIncomeDebt = statisticIncomeDebt(data);
-	const canvasSpent = statisticSpent(data);
-	const canvasIncomeDebtSpent = statisticIncomeDebtSpent(data);
-	const report = generatorReportInPage(data);
-	const canvas = {
-		1: canvasIncomeDebt.canvas.toDataURL("image/png"),
-		2: canvasSpent.canvas.toDataURL("image/png"),
-		3: canvasIncomeDebtSpent.canvas.toDataURL("image/png"),
-	};
+	statisticIncomeDebt(data);
+	statisticSpent(data);
+	statisticIncomeDebtSpent(data);
+	generatorReportInPage(data);
 	document.getElementById("btnPrintReportPDF").addEventListener("click", () => {
-		generatorReportPdf(report, canvas);
+		document.getElementById("btnPrintReportPDF").style.display = "none";
+		document.querySelector("header").style.display = "none";
+		window.print();
+		document.getElementById("btnPrintReportPDF").style.display = "block";
+		document.querySelector("header").style.display = "block";
 	});
 };
 fetchData(statisticAllCallBacks);
